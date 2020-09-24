@@ -6,6 +6,7 @@ import AllBooks from "./pages/AllBooks";
 import BorrowedBooks from "./pages/BorrowedBooks";
 import AvailableBooks from "./pages/AvailableBooks";
 import BookView from "./pages/BookView";
+import Loader from "./components/Loader";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Switch>
           <Route path="/allbooks" exact static component={AllBooks} />
           <Route path="/borrowedbooks" exact static component={BorrowedBooks} />
+          <Route path="/loader" exact static component={Loader} />
           <Route
             path="/availablebooks"
             exact

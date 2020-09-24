@@ -73,3 +73,19 @@ export const addBookAction = (book) => {
       });
   };
 };
+
+export const updateBookAction = (id, book) => {
+  return (dispatch) => {
+    dispatch({ type: "LOADING" });
+    axios
+      .put(`http://localhost:8081/books/updatebooks/${id}`, book)
+      .then((response) => {
+        if (response.status === 200) {
+          dispatch({ type: "GET_BOOKS", payload: response.data.data });
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+};

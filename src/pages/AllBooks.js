@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import Loader from "../components/Loader";
 import "./BookPage.css";
 import {
   Card,
@@ -20,6 +21,7 @@ const AllBooks = () => {
   const [author, setAuthor] = useState("");
   const [description, setDescription] = useState("");
   const books = useSelector((state) => state.books.books);
+  const loading = useSelector((state) => state.books.loading);
   const dispatch = useDispatch();
   const getAllBooks = () => dispatch(getAllBooksAction());
   const addBook = (book) => dispatch(addBookAction(book));
@@ -32,12 +34,18 @@ const AllBooks = () => {
   const handleShow = () => setShow(true);
 
   const handleSubmit = () => {
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, "0");
+    var mm = String(today.getMonth() + 1).padStart(2, "0");
+    var yyyy = today.getFullYear();
+
+    today = mm + "." + dd + "." + yyyy;
     addBook({
       bookcode: bookID,
       name: name,
       author: author,
       description: description,
-      addeddate: "2020-09-24",
+      addeddate: today,
       issuestatus: "false",
     });
 
@@ -144,35 +152,39 @@ const AllBooks = () => {
             </Button>
           </Col>
         </Row>
-        <Row>
-          {books.map((book) => (
-            <Col lg={3} md={4} xs={12}>
-              <div className="bookCard">
-                <Card>
-                  <Card.Img
-                    variant="top"
-                    src="https://thewritelife.com/wp-content/uploads/2019/08/How-to-format-a-book.jpg"
-                  />
-                  <Card.Body>
-                    <Card.Title>{book.name}</Card.Title>
-                    <Link
-                      to={{
-                        pathname: `/viewbook/${book._id}/${"allbooks"}`,
-                      }}
-                    >
-                      <Button
-                        variant="outline-primary"
-                        className="view-book-button"
+        {loading ? (
+          <Loader />
+        ) : (
+          <Row>
+            {books.map((book) => (
+              <Col lg={3} md={4} xs={12}>
+                <div className="bookCard">
+                  <Card>
+                    <Card.Img
+                      variant="top"
+                      src="https://thewritelife.com/wp-content/uploads/2019/08/How-to-format-a-book.jpg"
+                    />
+                    <Card.Body>
+                      <Card.Title>{book.name}</Card.Title>
+                      <Link
+                        to={{
+                          pathname: `/viewbook/${book._id}/${"allbooks"}`,
+                        }}
                       >
-                        View
-                      </Button>
-                    </Link>
-                  </Card.Body>
-                </Card>
-              </div>
-            </Col>
-          ))}
-        </Row>
+                        <Button
+                          variant="outline-primary"
+                          className="view-book-button"
+                        >
+                          View
+                        </Button>
+                      </Link>
+                    </Card.Body>
+                  </Card>
+                </div>
+              </Col>
+            ))}
+          </Row>
+        )}
       </Container>
     </div>
   );
