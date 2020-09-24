@@ -9,20 +9,108 @@ import {
   Container,
   InputGroup,
   FormControl,
+  Modal,
 } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
-import { getAllBooksAction } from "./BookStore/action";
+import { getAllBooksAction, addBookAction } from "./BookStore/action";
 const AllBooks = () => {
+  const [show, setShow] = useState(false);
+  const [bookID, setBookId] = useState("");
+  const [name, setName] = useState("");
+  const [author, setAuthor] = useState("");
+  const [description, setDescription] = useState("");
   const books = useSelector((state) => state.books.books);
   const dispatch = useDispatch();
   const getAllBooks = () => dispatch(getAllBooksAction());
+  const addBook = (book) => dispatch(addBookAction(book));
 
   useEffect(() => {
     getAllBooks();
   }, []);
 
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  const handleSubmit = () => {
+    addBook({
+      bookcode: bookID,
+      name: name,
+      author: author,
+      description: description,
+      addeddate: "2020-09-24",
+      issuestatus: "false",
+    });
+
+    setBookId("");
+    setName("");
+    setAuthor("");
+    setDescription("");
+    setShow(false);
+  };
+
   return (
     <div className="page-content">
+      <Modal
+        size="lg"
+        show={show}
+        onHide={handleClose}
+        backdrop="static"
+        keyboard={false}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Add New Book</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <InputGroup className="mb-3">
+            <InputGroup.Prepend>
+              <InputGroup.Text id="basic-addon3">Book ID</InputGroup.Text>
+            </InputGroup.Prepend>
+            <FormControl
+              id="basic-url"
+              aria-describedby="basic-addon3"
+              onChange={(event) => setBookId(event.target.value)}
+            />
+          </InputGroup>
+          <InputGroup className="mb-3">
+            <InputGroup.Prepend>
+              <InputGroup.Text id="basic-addon3">Name</InputGroup.Text>
+            </InputGroup.Prepend>
+            <FormControl
+              id="basic-url"
+              aria-describedby="basic-addon3"
+              onChange={(event) => setName(event.target.value)}
+            />
+          </InputGroup>
+          <InputGroup className="mb-3">
+            <InputGroup.Prepend>
+              <InputGroup.Text id="basic-addon3">Author</InputGroup.Text>
+            </InputGroup.Prepend>
+            <FormControl
+              id="basic-url"
+              aria-describedby="basic-addon3"
+              onChange={(event) => setAuthor(event.target.value)}
+            />
+          </InputGroup>
+          <InputGroup>
+            <InputGroup.Prepend>
+              <InputGroup.Text>Description</InputGroup.Text>
+            </InputGroup.Prepend>
+            <FormControl
+              as="textarea"
+              aria-label="With textarea"
+              onChange={(event) => setDescription(event.target.value)}
+            />
+          </InputGroup>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={handleSubmit}>
+            Add
+          </Button>
+        </Modal.Footer>
+      </Modal>
       <Container>
         <Row>
           <Col lg={4}>
@@ -47,7 +135,11 @@ const AllBooks = () => {
             </Button>
           </Col>
           <Col lg={2}>
-            <Button variant="outline-dark" style={{ width: "100%" }}>
+            <Button
+              variant="outline-dark"
+              style={{ width: "100%" }}
+              onClick={handleShow}
+            >
               Add new book
             </Button>
           </Col>

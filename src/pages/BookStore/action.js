@@ -57,3 +57,19 @@ export const deleteBookAction = (id, path) => {
       });
   };
 };
+
+export const addBookAction = (book) => {
+  return (dispatch) => {
+    dispatch({ type: "LOADING" });
+    axios
+      .post("http://localhost:8081/books/addbook", book)
+      .then((response) => {
+        if (response.status === 200) {
+          dispatch({ type: "ADD_BOOK", payload: response.data.data });
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+};
