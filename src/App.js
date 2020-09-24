@@ -7,8 +7,9 @@ import AllBooks from "./pages/AllBooks";
 function App() {
   return (
     <div>
-      <Navbar />
       <BrowserRouter>
+        <Navbar />
+
         <Switch>
           <Route path="/allbooks" exact static component={AllBooks} />
         </Switch>

@@ -1,21 +1,17 @@
 import React, { useState, useEffect } from "react";
 import "./BookPage.css";
 import { Card, Button, Row, Col, Container } from "react-bootstrap";
-
+import { useSelector, useDispatch } from "react-redux";
+import { getAllBooksAction } from "./BookStore/action";
 const AllBooks = () => {
-  const [books, setBook] = useState([]);
-
-  const fetchBooks = () => {
-    fetch("http://localhost:8081/books/getallbooks")
-      .then((result) => result.json())
-      .then((data) => setBook(data.data))
-      .catch((error) => console.log(error));
-  };
+  const books = useSelector((state) => state.books.books);
+  const dispatch = useDispatch();
+  const getAllBooks = () => dispatch(getAllBooksAction());
 
   useEffect(() => {
-    fetchBooks();
-    console.log(books);
+    getAllBooks();
   }, []);
+
   return (
     <div className="page-content">
       <Container>

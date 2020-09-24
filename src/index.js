@@ -5,10 +5,21 @@ import App from "./App";
 import "bootstrap/dist/css/bootstrap.min.css";
 import * as serviceWorker from "./serviceWorker";
 
+import bookReducer from "./pages/BookStore/reducer";
+import { createStore, combineReducers, applyMiddleware, compose } from "redux";
+import { Provider } from "react-redux";
+import thunk from "redux-thunk";
+
+const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const store = createStore(
+  combineReducers({ books: bookReducer }),
+  composeEnhancer(applyMiddleware(thunk))
+);
+
 ReactDOM.render(
-  <React.StrictMode>
+  <Provider store={store}>
     <App />
-  </React.StrictMode>,
+  </Provider>,
   document.getElementById("root")
 );
 

@@ -11,7 +11,8 @@ const Navbar = () => {
       </div>
       <Nav fill variant="tabs" defaultActiveKey="/allbooks">
         <Nav.Item>
-          <Nav.Link href="/allbooks">Books</Nav.Link>
+          {/* <Nav.Link href="/allbooks">Books</Nav.Link> */}
+          <Link to="/allbooks">Books</Link>
         </Nav.Item>
         <Nav.Item>
           <Nav.Link href="/avabooks">Users</Nav.Link>
