@@ -4,13 +4,14 @@ import { Card, Button, Row, Col, Container } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { getSelectedBooksAction } from "./BookStore/action";
 
-const BorrowedBooks = () => {
+const AvailableBooks = () => {
   const books = useSelector((state) => state.books.books);
   const dispatch = useDispatch();
-  const getBorrowedBooks = (status) => dispatch(getSelectedBooksAction(status));
+  const getAvailableBooks = (status) =>
+    dispatch(getSelectedBooksAction(status));
 
   useEffect(() => {
-    getBorrowedBooks("true");
+    getAvailableBooks("false");
   }, []);
 
   return (
@@ -41,4 +42,4 @@ const BorrowedBooks = () => {
   );
 };
 
-export default BorrowedBooks;
+export default AvailableBooks;

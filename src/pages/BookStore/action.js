@@ -14,7 +14,7 @@ export const getAllBooksAction = () => {
   };
 };
 
-export const getBorrowedBooksAction = (status) => {
+export const getSelectedBooksAction = (status) => {
   return (dispatch) => {
     dispatch({ type: "LOADING" });
     axios

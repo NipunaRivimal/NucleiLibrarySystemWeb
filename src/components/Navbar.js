@@ -12,11 +12,15 @@ const Navbar = () => {
       <Nav fill variant="tabs" defaultActiveKey="/allbooks">
         <Nav.Item>
           {/* <Nav.Link href="/allbooks">Books</Nav.Link> */}
-          <Link to="/allbooks">Books</Link>
+          <Link to="/allbooks">All Books</Link>
         </Nav.Item>
         <Nav.Item>
           {/* <Nav.Link href="/avabooks">Users</Nav.Link> */}
           <Link to="/borrowedbooks">Borrowed Books</Link>
+        </Nav.Item>
+        <Nav.Item>
+          {/* <Nav.Link href="/avabooks">Users</Nav.Link> */}
+          <Link to="/availablebooks">Available Books</Link>
         </Nav.Item>
       </Nav>
     </div>
