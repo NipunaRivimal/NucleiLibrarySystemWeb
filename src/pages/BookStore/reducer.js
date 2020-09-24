@@ -11,7 +11,7 @@ const booksReducer = (state = initialState, Action) => {
         ...state,
         loading: true,
       };
-    case "GET_ALL_BOOKS":
+    case "GET_BOOKS":
       return {
         ...state,
         books: Action.payload,

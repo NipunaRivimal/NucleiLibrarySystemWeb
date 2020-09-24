@@ -15,7 +15,8 @@ const Navbar = () => {
           <Link to="/allbooks">Books</Link>
         </Nav.Item>
         <Nav.Item>
-          <Nav.Link href="/avabooks">Users</Nav.Link>
+          {/* <Nav.Link href="/avabooks">Users</Nav.Link> */}
+          <Link to="/borrowedbooks">Borrowed Books</Link>
         </Nav.Item>
       </Nav>
     </div>
