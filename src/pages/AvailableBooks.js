@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import "./BookPage.css";
 import { Card, Button, Row, Col, Container } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
@@ -28,9 +29,18 @@ const AvailableBooks = () => {
                   />
                   <Card.Body>
                     <Card.Title>{book.name}</Card.Title>
-                    <Button variant="primary" className="view-book-button">
-                      View
-                    </Button>
+                    <Link
+                      to={{
+                        pathname: `/viewbook/${book._id}/${"availablebooks"}`,
+                      }}
+                    >
+                      <Button
+                        variant="outline-primary"
+                        className="view-book-button"
+                      >
+                        View
+                      </Button>
+                    </Link>
                   </Card.Body>
                 </Card>
               </div>
