@@ -7,6 +7,7 @@ import BorrowedBooks from "./pages/BorrowedBooks";
 import AvailableBooks from "./pages/AvailableBooks";
 import BookView from "./pages/BookView";
 import AllMembers from "./pages/AllMembers";
+import MemberView from "./pages/MemberView";
 import Loader from "./components/Loader";
 
 function App() {
@@ -32,6 +33,7 @@ function App() {
             component={BookView}
           />
           <Route path="/allmembers" exact static component={AllMembers} />
+          <Route path="/viewmember/:id" exact static component={MemberView} />
         </Switch>
       </BrowserRouter>
     </div>

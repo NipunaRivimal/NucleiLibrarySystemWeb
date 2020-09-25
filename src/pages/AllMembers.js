@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import Loader from "../components/Loader";
 import {
   Container,
@@ -192,32 +193,42 @@ const AllMembers = () => {
             </Button>
           </Col>
         </Row>
-        <Table bordered hover>
-          <thead>
-            <tr>
-              <th>User ID</th>
-              <th>First Name</th>
-              <th>Last Name</th>
-              <th>Mobile No</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            {members.map((member) => (
+        {loading ? (
+          <Loader />
+        ) : (
+          <Table bordered hover>
+            <thead>
               <tr>
-                <td>{member.userid}</td>
-                <td>{member.firstname}</td>
-                <td>{member.lastname}</td>
-                <td>{member.mobilenumber}</td>
-                <td>
-                  <Button variant="outline-dark" style={{ width: "100%" }}>
-                    View
-                  </Button>
-                </td>
+                <th>User ID</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Mobile No</th>
+                <th></th>
               </tr>
-            ))}
-          </tbody>
-        </Table>
+            </thead>
+            <tbody>
+              {members.map((member) => (
+                <tr>
+                  <td>{member.userid}</td>
+                  <td>{member.firstname}</td>
+                  <td>{member.lastname}</td>
+                  <td>{member.mobilenumber}</td>
+                  <td>
+                    <Link
+                      to={{
+                        pathname: `/viewmember/${member._id}`,
+                      }}
+                    >
+                      <Button variant="outline-dark" style={{ width: "100%" }}>
+                        View
+                      </Button>
+                    </Link>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+        )}
       </Container>
     </div>
   );

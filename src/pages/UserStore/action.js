@@ -28,19 +28,19 @@ export const getAllMembersAction = () => {
 //   };
 // };
 
-// export const getSingleBookAction = (id) => {
-//   return (dispatch) => {
-//     dispatch({ type: "LOADING" });
-//     axios
-//       .get(`http://localhost:8081/books/getsinglebook/${id}`)
-//       .then((respose) => {
-//         dispatch({ type: "GET_BOOKS", payload: respose.data.data });
-//       })
-//       .catch((error) => {
-//         console.log(error);
-//       });
-//   };
-// };
+export const getSingleMemberAction = (id) => {
+  return (dispatch) => {
+    dispatch({ type: "LOADING" });
+    axios
+      .get(`http://localhost:8081/user/getsingleuser/${id}`)
+      .then((respose) => {
+        dispatch({ type: "GET_MEMBERS", payload: respose.data.data });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+};
 
 export const deleteMemberAction = (id) => {
   return (dispatch) => {
