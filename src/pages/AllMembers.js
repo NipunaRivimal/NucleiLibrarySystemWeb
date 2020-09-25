@@ -147,7 +147,7 @@ const AllMembers = () => {
           keyboard={false}
         >
           <Modal.Header closeButton>
-            <Modal.Title>Add New User</Modal.Title>
+            <Modal.Title>Add New Member</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <InputGroup className="mb-3">

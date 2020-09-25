@@ -20,13 +20,16 @@ const useMemberForm = (callback, validateAddMember) => {
     });
   };
 
-  const handleShowSetValues = (book) => {
+  const handleShowSetValues = (member) => {
     setValues({
       ...values,
-      bookID: book.bookcode,
-      name: book.name,
-      author: book.author,
-      description: book.description,
+      userId: member.userid,
+      fName: member.firstname,
+      lName: member.lastname,
+      mobNo: member.mobilenumber,
+      homeAddr: member.homeaddress,
+      username: member.username,
+      password: member.password,
     });
   };
 

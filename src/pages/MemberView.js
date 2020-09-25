@@ -7,8 +7,11 @@ import {
   Modal,
   InputGroup,
   FormControl,
+  Alert,
 } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
+import useMemberForm from "../customHooks/useMemberForm";
+import validateAddMember from "../customFunctions/validateAddMember";
 import {
   getSingleMemberAction,
   deleteMemberAction,
@@ -16,14 +19,21 @@ import {
 } from "./UserStore/action";
 
 const MemberView = (props) => {
+  const {
+    handleChange,
+    handleSubmit,
+    handleShowSetValues,
+    values,
+    errors,
+  } = useMemberForm(submit, validateAddMember);
   const [show, setShow] = useState(false);
-  const [userId, setUserId] = useState("");
-  const [fName, setFName] = useState("");
-  const [lName, setLName] = useState("");
-  const [mobNo, setMobNo] = useState("");
-  const [homeAddr, setHomeAddr] = useState("");
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  // const [userId, setUserId] = useState("");
+  // const [fName, setFName] = useState("");
+  // const [lName, setLName] = useState("");
+  // const [mobNo, setMobNo] = useState("");
+  // const [homeAddr, setHomeAddr] = useState("");
+  // const [username, setUsername] = useState("");
+  // const [password, setPassword] = useState("");
   const members = useSelector((state) => state.members.members);
   const loading = useSelector((state) => state.members.loading);
   const deleteStatus = useSelector((state) => state.members.memberDeleted);
@@ -34,35 +44,49 @@ const MemberView = (props) => {
 
   const handleClose = () => setShow(false);
   const handleShow = (member) => {
-    setUserId(member.userid);
-    setFName(member.firstname);
-    setLName(member.lastname);
-    setMobNo(member.mobilenumber);
-    setHomeAddr(member.homeaddress);
-    setUsername(member.username);
-    setPassword(member.password);
+    // setUserId(member.userid);
+    // setFName(member.firstname);
+    // setLName(member.lastname);
+    // setMobNo(member.mobilenumber);
+    // setHomeAddr(member.homeaddress);
+    // setUsername(member.username);
+    // setPassword(member.password);
+    handleShowSetValues(member);
     setShow(true);
   };
 
-  const handleSubmit = () => {
+  function submit() {
     updateMember(props.match.params.id, {
-      userid: userId,
-      firstname: fName,
-      lastname: lName,
-      mobilenumber: mobNo,
-      homeaddress: homeAddr,
-      username: username,
-      password: password,
+      userid: values.userId,
+      firstname: values.fName,
+      lastname: values.lName,
+      mobilenumber: values.mobNo,
+      homeaddress: values.homeAddr,
+      username: values.username,
+      password: values.password,
     });
-    setUserId("");
-    setFName("");
-    setLName("");
-    setMobNo("");
-    setHomeAddr("");
-    setUsername("");
-    setPassword("");
+
     setShow(false);
-  };
+  }
+  // const handleSubmit = () => {
+  //   updateMember(props.match.params.id, {
+  //     userid: userId,
+  //     firstname: fName,
+  //     lastname: lName,
+  //     mobilenumber: mobNo,
+  //     homeaddress: homeAddr,
+  //     username: username,
+  //     password: password,
+  //   });
+  //   setUserId("");
+  //   setFName("");
+  //   setLName("");
+  //   setMobNo("");
+  //   setHomeAddr("");
+  //   setUsername("");
+  //   setPassword("");
+  //   setShow(false);
+  // };
 
   useEffect(() => {
     getSingleMember(props.match.params.id);
@@ -83,7 +107,7 @@ const MemberView = (props) => {
           keyboard={false}
         >
           <Modal.Header closeButton>
-            <Modal.Title>Update User</Modal.Title>
+            <Modal.Title>Update Member</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <InputGroup className="mb-3">
@@ -93,10 +117,13 @@ const MemberView = (props) => {
               <FormControl
                 id="basic-url"
                 aria-describedby="basic-addon3"
-                value={userId}
-                onChange={(event) => setUserId(event.target.value)}
+                name="userId"
+                value={values.userId}
+                // onChange={(event) => setUserId(event.target.value)}
+                onChange={handleChange}
               />
             </InputGroup>
+            {errors.userId && <Alert variant="danger">{errors.userId}</Alert>}
             <InputGroup className="mb-3">
               <InputGroup.Prepend>
                 <InputGroup.Text id="basic-addon3">First Name</InputGroup.Text>
@@ -104,10 +131,13 @@ const MemberView = (props) => {
               <FormControl
                 id="basic-url"
                 aria-describedby="basic-addon3"
-                value={fName}
-                onChange={(event) => setFName(event.target.value)}
+                name="fName"
+                value={values.fName}
+                // onChange={(event) => setFName(event.target.value)}
+                onChange={handleChange}
               />
             </InputGroup>
+            {errors.fName && <Alert variant="danger">{errors.fName}</Alert>}
             <InputGroup className="mb-3">
               <InputGroup.Prepend>
                 <InputGroup.Text id="basic-addon3">Last Name</InputGroup.Text>
@@ -115,10 +145,13 @@ const MemberView = (props) => {
               <FormControl
                 id="basic-url"
                 aria-describedby="basic-addon3"
-                value={lName}
-                onChange={(event) => setLName(event.target.value)}
+                name="lName"
+                value={values.lName}
+                // onChange={(event) => setLName(event.target.value)}
+                onChange={handleChange}
               />
             </InputGroup>
+            {errors.lName && <Alert variant="danger">{errors.lName}</Alert>}
             <InputGroup className="mb-3">
               <InputGroup.Prepend>
                 <InputGroup.Text id="basic-addon3">
@@ -128,10 +161,13 @@ const MemberView = (props) => {
               <FormControl
                 id="basic-url"
                 aria-describedby="basic-addon3"
-                value={mobNo}
-                onChange={(event) => setMobNo(event.target.value)}
+                name="mobNo"
+                value={values.mobNo}
+                // onChange={(event) => setMobNo(event.target.value)}
+                onChange={handleChange}
               />
             </InputGroup>
+            {errors.mobNo && <Alert variant="danger">{errors.mobNo}</Alert>}
             <InputGroup>
               <InputGroup.Prepend>
                 <InputGroup.Text>Home Address</InputGroup.Text>
@@ -139,10 +175,15 @@ const MemberView = (props) => {
               <FormControl
                 as="textarea"
                 aria-label="With textarea"
-                value={homeAddr}
-                onChange={(event) => setHomeAddr(event.target.value)}
+                name="homeAddr"
+                value={values.homeAddr}
+                // onChange={(event) => setHomeAddr(event.target.value)}
+                onChange={handleChange}
               />
             </InputGroup>
+            {errors.homeAddr && (
+              <Alert variant="danger">{errors.homeAddr}</Alert>
+            )}
             <InputGroup className="mb-3">
               <InputGroup.Prepend>
                 <InputGroup.Text id="basic-addon3">Username</InputGroup.Text>
@@ -150,21 +191,32 @@ const MemberView = (props) => {
               <FormControl
                 id="basic-url"
                 aria-describedby="basic-addon3"
-                value={username}
-                onChange={(event) => setUsername(event.target.value)}
+                name="username"
+                value={values.username}
+                // onChange={(event) => setUsername(event.target.value)}
+                onChange={handleChange}
               />
             </InputGroup>
+            {errors.username && (
+              <Alert variant="danger">{errors.username}</Alert>
+            )}
             <InputGroup className="mb-3">
               <InputGroup.Prepend>
                 <InputGroup.Text id="basic-addon3">Password</InputGroup.Text>
               </InputGroup.Prepend>
               <FormControl
+                type="password"
                 id="basic-url"
                 aria-describedby="basic-addon3"
-                value={password}
-                onChange={(event) => setPassword(event.target.value)}
+                name="password"
+                value={values.password}
+                // onChange={(event) => setPassword(event.target.value)}
+                onChange={handleChange}
               />
             </InputGroup>
+            {errors.password && (
+              <Alert variant="danger">{errors.password}</Alert>
+            )}
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={handleClose}>
