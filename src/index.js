@@ -6,13 +6,14 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import * as serviceWorker from "./serviceWorker";
 
 import bookReducer from "./pages/BookStore/reducer";
+import memberReducer from "./pages/UserStore/reducer";
 import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 import { Provider } from "react-redux";
 import thunk from "redux-thunk";
 
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(
-  combineReducers({ books: bookReducer }),
+  combineReducers({ books: bookReducer, members: memberReducer }),
   composeEnhancer(applyMiddleware(thunk))
 );
 
