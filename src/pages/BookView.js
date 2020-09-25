@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Link, useHistory, Redirect } from "react-router-dom";
 import Loader from "../components/Loader";
-import { Button, Modal, InputGroup, FormControl } from "react-bootstrap";
+import { Button, Modal, InputGroup, FormControl, Alert } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
+import useBookForm from "../customHooks/useBookForm";
+import validateAddBook from "../customFunctions/validateAddBook";
 import {
   getSingleBookAction,
   deleteBookAction,
@@ -10,6 +12,13 @@ import {
 } from "./BookStore/action";
 
 const BookView = (props) => {
+  const {
+    handleChange,
+    handleSubmit,
+    handleShowSetValues,
+    values,
+    errors,
+  } = useBookForm(submit, validateAddBook);
   const [show, setShow] = useState(false);
   const [bookID, setBookId] = useState("");
   const [name, setName] = useState("");
@@ -29,27 +38,37 @@ const BookView = (props) => {
   }, []);
 
   const handleClose = () => setShow(false);
-  const handleShow = (book) => {
-    setBookId(book.bookcode);
-    setName(book.name);
-    setAuthor(book.author);
-    setDescription(book.description);
+  function handleShow(book) {
+    // setBookId(book.bookcode);
+    // setName(book.name);
+    // setAuthor(book.author);
+    // setDescription(book.description);
+    handleShowSetValues(book);
     setShow(true);
-  };
+  }
 
-  const handleSubmit = () => {
+  function submit() {
     updateBook(props.match.params.id, {
-      bookcode: bookID,
-      name: name,
-      author: author,
-      description: description,
+      bookcode: values.bookID,
+      name: values.name,
+      author: values.author,
+      description: values.description,
     });
-    setBookId("");
-    setName("");
-    setAuthor("");
-    setDescription("");
     setShow(false);
-  };
+  }
+  // const handleSubmit = () => {
+  //   updateBook(props.match.params.id, {
+  //     bookcode: bookID,
+  //     name: name,
+  //     author: author,
+  //     description: description,
+  //   });
+  //   setBookId("");
+  //   setName("");
+  //   setAuthor("");
+  //   setDescription("");
+  //   setShow(false);
+  // };
 
   if (deleteStatus) {
     return <Redirect to={"/" + props.match.params.pagecategory} />;
@@ -82,10 +101,13 @@ const BookView = (props) => {
             <FormControl
               id="basic-url"
               aria-describedby="basic-addon3"
-              value={bookID}
-              onChange={(event) => setBookId(event.target.value)}
+              name="bookID"
+              value={values.bookID}
+              // onChange={(event) => setBookId(event.target.value)}
+              onChange={handleChange}
             />
           </InputGroup>
+          {errors.bookID && <Alert variant="danger">{errors.bookID}</Alert>}
           <InputGroup className="mb-3">
             <InputGroup.Prepend>
               <InputGroup.Text id="basic-addon3">Name</InputGroup.Text>
@@ -93,10 +115,13 @@ const BookView = (props) => {
             <FormControl
               id="basic-url"
               aria-describedby="basic-addon3"
-              value={name}
-              onChange={(event) => setName(event.target.value)}
+              name="name"
+              value={values.name}
+              // onChange={(event) => setName(event.target.value)}
+              onChange={handleChange}
             />
           </InputGroup>
+          {errors.name && <Alert variant="danger">{errors.name}</Alert>}
           <InputGroup className="mb-3">
             <InputGroup.Prepend>
               <InputGroup.Text id="basic-addon3">Author</InputGroup.Text>
@@ -104,10 +129,13 @@ const BookView = (props) => {
             <FormControl
               id="basic-url"
               aria-describedby="basic-addon3"
-              value={author}
-              onChange={(event) => setAuthor(event.target.value)}
+              name="author"
+              value={values.author}
+              // onChange={(event) => setAuthor(event.target.value)}
+              onChange={handleChange}
             />
           </InputGroup>
+          {errors.author && <Alert variant="danger">{errors.author}</Alert>}
           <InputGroup>
             <InputGroup.Prepend>
               <InputGroup.Text>Description</InputGroup.Text>
@@ -115,10 +143,15 @@ const BookView = (props) => {
             <FormControl
               as="textarea"
               aria-label="With textarea"
-              value={description}
-              onChange={(event) => setDescription(event.target.value)}
+              name="description"
+              value={values.description}
+              // onChange={(event) => setDescription(event.target.value)}
+              onChange={handleChange}
             />
           </InputGroup>
+          {errors.description && (
+            <Alert variant="danger">{errors.description}</Alert>
+          )}
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>

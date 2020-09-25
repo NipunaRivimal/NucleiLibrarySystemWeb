@@ -12,6 +12,7 @@ import {
   InputGroup,
   FormControl,
   Modal,
+  Alert,
 } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import useBookForm from "../customHooks/useBookForm";
@@ -156,8 +157,8 @@ const AllBooks = () => {
               // onChange={(event) => setBookId(event.target.value)}
               onChange={handleChange}
             />
-            {errors.bookID && <p>{errors.bookID}</p>}
           </InputGroup>
+          {errors.bookID && <Alert variant="danger">{errors.bookID}</Alert>}
           <InputGroup className="mb-3">
             <InputGroup.Prepend>
               <InputGroup.Text id="basic-addon3">Name</InputGroup.Text>
@@ -170,8 +171,8 @@ const AllBooks = () => {
               // onChange={(event) => setName(event.target.value)}
               onChange={handleChange}
             />
-            {errors.name && <p>{errors.name}</p>}
           </InputGroup>
+          {errors.name && <Alert variant="danger">{errors.name}</Alert>}
           <InputGroup className="mb-3">
             <InputGroup.Prepend>
               <InputGroup.Text id="basic-addon3">Author</InputGroup.Text>
@@ -184,8 +185,8 @@ const AllBooks = () => {
               // onChange={(event) => setAuthor(event.target.value)}
               onChange={handleChange}
             />
-            {errors.author && <p>{errors.author}</p>}
           </InputGroup>
+          {errors.author && <Alert variant="danger">{errors.author}</Alert>}
           <InputGroup>
             <InputGroup.Prepend>
               <InputGroup.Text>Description</InputGroup.Text>
@@ -198,8 +199,10 @@ const AllBooks = () => {
               // onChange={(event) => setDescription(event.target.value)}
               onChange={handleChange}
             />
-            {errors.description && <p>{errors.description}</p>}
           </InputGroup>
+          {errors.description && (
+            <Alert variant="danger">{errors.description}</Alert>
+          )}
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>

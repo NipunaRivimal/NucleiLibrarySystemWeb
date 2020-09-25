@@ -17,6 +17,16 @@ const useBookForm = (callback, validateAddBook) => {
     });
   };
 
+  const handleShowSetValues = (book) => {
+    setValues({
+      ...values,
+      bookID: book.bookcode,
+      name: book.name,
+      author: book.author,
+      description: book.description,
+    });
+  };
+
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = (event) => {
@@ -33,6 +43,7 @@ const useBookForm = (callback, validateAddBook) => {
   return {
     handleChange,
     handleSubmit,
+    handleShowSetValues,
     values,
     errors,
   };
