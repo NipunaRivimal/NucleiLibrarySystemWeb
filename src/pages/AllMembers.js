@@ -187,6 +187,7 @@ const AllMembers = () => {
                 <InputGroup.Text id="basic-addon3">Password</InputGroup.Text>
               </InputGroup.Prepend>
               <FormControl
+                type="password"
                 id="basic-url"
                 aria-describedby="basic-addon3"
                 onChange={(event) => setPassword(event.target.value)}

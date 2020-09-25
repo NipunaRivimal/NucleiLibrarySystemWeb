@@ -14,18 +14,31 @@ import {
   Modal,
 } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
+import useBookForm from "../customHooks/useBookForm";
+import validateAddBook from "../customFunctions/validateAddBook";
 import {
   getAllBooksAction,
   addBookAction,
   getFilteredBooksNameAction,
   getFilteredBooksAuthorAction,
 } from "./BookStore/action";
+
 const AllBooks = () => {
+  const { handleChange, handleSubmit, values, errors } = useBookForm(
+    submit,
+    validateAddBook
+  );
   const [show, setShow] = useState(false);
   const [bookID, setBookId] = useState("");
   const [name, setName] = useState("");
   const [author, setAuthor] = useState("");
   const [description, setDescription] = useState("");
+  // const [values, setValues] = useState({
+  //   bookID: "",
+  //   name: "",
+  //   author: "",
+  //   description: "",
+  // });
   const [searchName, setSearchName] = useState("");
   const [searchAuthor, setSearchAuthor] = useState("");
   const books = useSelector((state) => state.books.books);
@@ -59,7 +72,31 @@ const AllBooks = () => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const handleSubmit = () => {
+  // const handleSubmit = () => {
+  //   var today = new Date();
+  //   var dd = String(today.getDate()).padStart(2, "0");
+  //   var mm = String(today.getMonth() + 1).padStart(2, "0");
+  //   var yyyy = today.getFullYear();
+
+  //   today = mm + "." + dd + "." + yyyy;
+  //   addBook({
+  //     bookcode: bookID,
+  //     name: name,
+  //     author: author,
+  //     description: description,
+  //     addeddate: today,
+  //     issuestatus: "false",
+  //   });
+
+  //   setBookId("");
+  //   setName("");
+  //   setAuthor("");
+  //   setDescription("");
+  //   setShow(false);
+  // };
+
+  function submit() {
+    console.log("submit");
     var today = new Date();
     var dd = String(today.getDate()).padStart(2, "0");
     var mm = String(today.getMonth() + 1).padStart(2, "0");
@@ -67,20 +104,23 @@ const AllBooks = () => {
 
     today = mm + "." + dd + "." + yyyy;
     addBook({
-      bookcode: bookID,
-      name: name,
-      author: author,
-      description: description,
+      bookcode: values.bookID,
+      name: values.name,
+      author: values.author,
+      description: values.description,
       addeddate: today,
       issuestatus: "false",
     });
 
-    setBookId("");
-    setName("");
-    setAuthor("");
-    setDescription("");
     setShow(false);
-  };
+  }
+
+  // const handleChange = (event) => {
+  //   setValues({
+  //     ...values,
+  //     [event.target.name]: event.target.value,
+  //   });
+  // };
 
   const searchByNameHandler = (event) => {
     setSearchName(event.target.value);
@@ -111,8 +151,12 @@ const AllBooks = () => {
             <FormControl
               id="basic-url"
               aria-describedby="basic-addon3"
-              onChange={(event) => setBookId(event.target.value)}
+              name="bookID"
+              value={values.bookID}
+              // onChange={(event) => setBookId(event.target.value)}
+              onChange={handleChange}
             />
+            {errors.bookID && <p>{errors.bookID}</p>}
           </InputGroup>
           <InputGroup className="mb-3">
             <InputGroup.Prepend>
@@ -121,8 +165,12 @@ const AllBooks = () => {
             <FormControl
               id="basic-url"
               aria-describedby="basic-addon3"
-              onChange={(event) => setName(event.target.value)}
+              name="name"
+              value={values.name}
+              // onChange={(event) => setName(event.target.value)}
+              onChange={handleChange}
             />
+            {errors.name && <p>{errors.name}</p>}
           </InputGroup>
           <InputGroup className="mb-3">
             <InputGroup.Prepend>
@@ -131,8 +179,12 @@ const AllBooks = () => {
             <FormControl
               id="basic-url"
               aria-describedby="basic-addon3"
-              onChange={(event) => setAuthor(event.target.value)}
+              name="author"
+              value={values.author}
+              // onChange={(event) => setAuthor(event.target.value)}
+              onChange={handleChange}
             />
+            {errors.author && <p>{errors.author}</p>}
           </InputGroup>
           <InputGroup>
             <InputGroup.Prepend>
@@ -141,8 +193,12 @@ const AllBooks = () => {
             <FormControl
               as="textarea"
               aria-label="With textarea"
-              onChange={(event) => setDescription(event.target.value)}
+              name="description"
+              value={values.description}
+              // onChange={(event) => setDescription(event.target.value)}
+              onChange={handleChange}
             />
+            {errors.description && <p>{errors.description}</p>}
           </InputGroup>
         </Modal.Body>
         <Modal.Footer>
