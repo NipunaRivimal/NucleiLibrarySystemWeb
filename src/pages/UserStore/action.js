@@ -14,19 +14,33 @@ export const getAllMembersAction = () => {
   };
 };
 
-// export const getSelectedMembersAction = (status) => {
-//   return (dispatch) => {
-//     dispatch({ type: "LOADING" });
-//     axios
-//       .get(`http://localhost:8081/books/getselectedbooks/${status}`)
-//       .then((respose) => {
-//         dispatch({ type: "GET_BOOKS", payload: respose.data.data });
-//       })
-//       .catch((error) => {
-//         console.log(error);
-//       });
-//   };
-// };
+export const getFilteredMembersNameAction = (name) => {
+  return (dispatch) => {
+    dispatch({ type: "LOADING" });
+    axios
+      .get(`http://localhost:8081/user/getfiltereduserfname/${name}`)
+      .then((respose) => {
+        dispatch({ type: "GET_MEMBERS", payload: respose.data.data });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+};
+
+export const getFilteredMembersIdAction = (id) => {
+  return (dispatch) => {
+    dispatch({ type: "LOADING" });
+    axios
+      .get(`http://localhost:8081/user/getfiltereduserid/${id}`)
+      .then((respose) => {
+        dispatch({ type: "GET_MEMBERS", payload: respose.data.data });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+};
 
 export const getSingleMemberAction = (id) => {
   return (dispatch) => {

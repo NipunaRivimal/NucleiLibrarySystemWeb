@@ -14,22 +14,47 @@ import {
   Modal,
 } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
-import { getAllBooksAction, addBookAction } from "./BookStore/action";
+import {
+  getAllBooksAction,
+  addBookAction,
+  getFilteredBooksNameAction,
+  getFilteredBooksAuthorAction,
+} from "./BookStore/action";
 const AllBooks = () => {
   const [show, setShow] = useState(false);
   const [bookID, setBookId] = useState("");
   const [name, setName] = useState("");
   const [author, setAuthor] = useState("");
   const [description, setDescription] = useState("");
+  const [searchName, setSearchName] = useState("");
+  const [searchAuthor, setSearchAuthor] = useState("");
   const books = useSelector((state) => state.books.books);
   const loading = useSelector((state) => state.books.loading);
   const dispatch = useDispatch();
   const getAllBooks = () => dispatch(getAllBooksAction());
   const addBook = (book) => dispatch(addBookAction(book));
+  const filterBooks = (name) => dispatch(getFilteredBooksNameAction(name));
+  const filterBooksAuthor = (author) =>
+    dispatch(getFilteredBooksAuthorAction(author));
+
+  // useEffect(() => {
+  //   getAllBooks();
+  // }, []);
 
   useEffect(() => {
-    getAllBooks();
-  }, []);
+    const debouncer = window.setTimeout(() => {
+      if (searchName.length > 0) {
+        filterBooks(searchName);
+      } else if (searchAuthor.length > 0) {
+        filterBooksAuthor(searchAuthor);
+      } else {
+        getAllBooks();
+      }
+    }, 1000);
+    return () => {
+      window.clearTimeout(debouncer);
+    };
+  }, [searchName, searchAuthor]);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -57,6 +82,15 @@ const AllBooks = () => {
     setShow(false);
   };
 
+  const searchByNameHandler = (event) => {
+    setSearchName(event.target.value);
+    setSearchAuthor("");
+  };
+
+  const searchByAuthorHandler = (event) => {
+    setSearchName("");
+    setSearchAuthor(event.target.value);
+  };
   return (
     <div className="page-content">
       <Modal
@@ -127,6 +161,10 @@ const AllBooks = () => {
               <FormControl
                 placeholder="Search by name..."
                 aria-label="Amount (to the nearest dollar)"
+                value={searchName}
+                onChange={(event) => {
+                  searchByNameHandler(event);
+                }}
               />
             </InputGroup>
           </Col>
@@ -135,6 +173,10 @@ const AllBooks = () => {
               <FormControl
                 placeholder="Search by author..."
                 aria-label="Amount (to the nearest dollar)"
+                value={searchAuthor}
+                onChange={(event) => {
+                  searchByAuthorHandler(event);
+                }}
               />
             </InputGroup>
           </Col>

@@ -12,11 +12,17 @@ import {
   Modal,
 } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
-import { getAllMembersAction, addMemberAction } from "./UserStore/action";
+import {
+  getAllMembersAction,
+  addMemberAction,
+  getFilteredMembersNameAction,
+  getFilteredMembersIdAction,
+} from "./UserStore/action";
 import "./AllMembers.css";
 
 const AllMembers = () => {
   const [show, setShow] = useState(false);
+  const [timeout, setTimeout] = useState(0);
   const [userId, setUserId] = useState("");
   const [fName, setFName] = useState("");
   const [lName, setLName] = useState("");
@@ -25,11 +31,16 @@ const AllMembers = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [joinDate, setJoinDate] = useState("");
+  const [searchName, setSearchName] = useState("");
+  const [searchId, setSearchId] = useState("");
   const members = useSelector((state) => state.members.members);
   const loading = useSelector((state) => state.members.loading);
   const dispatch = useDispatch();
   const getAllMembers = () => dispatch(getAllMembersAction());
   const addMember = (member) => dispatch(addMemberAction(member));
+  const filterMembersName = (name) =>
+    dispatch(getFilteredMembersNameAction(name));
+  const filterMembersId = (id) => dispatch(getFilteredMembersIdAction(id));
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -61,9 +72,39 @@ const AllMembers = () => {
     setPassword("");
     setShow(false);
   };
+
+  //   const handleSearch = () => {
+  //     filterMembers(searchName);
+  //   };
+
+  //   useEffect(() => {
+  //     getAllMembers();
+  //   }, []);
+
   useEffect(() => {
-    getAllMembers();
-  }, []);
+    const debouncer = window.setTimeout(() => {
+      if (searchName.length > 0) {
+        filterMembersName(searchName);
+      } else if (searchId.length > 0) {
+        filterMembersId(searchId);
+      } else {
+        getAllMembers();
+      }
+    }, 1000);
+    return () => {
+      window.clearTimeout(debouncer);
+    };
+  }, [searchName, searchId]);
+
+  const searchByNameHandler = (event) => {
+    setSearchName(event.target.value);
+    setSearchId("");
+  };
+
+  const searchByIdHandler = (event) => {
+    setSearchName("");
+    setSearchId(event.target.value);
+  };
 
   return (
     <div className="page-content">
@@ -167,6 +208,8 @@ const AllMembers = () => {
               <FormControl
                 placeholder="Search by user ID..."
                 aria-label="Amount (to the nearest dollar)"
+                value={searchId}
+                onChange={(e) => searchByIdHandler(e)}
               />
             </InputGroup>
           </Col>
@@ -175,11 +218,17 @@ const AllMembers = () => {
               <FormControl
                 placeholder="Search by first name..."
                 aria-label="Amount (to the nearest dollar)"
+                value={searchName}
+                onChange={(e) => searchByNameHandler(e)}
               />
             </InputGroup>
           </Col>
           <Col lg={2}>
-            <Button variant="outline-success" style={{ width: "100%" }}>
+            <Button
+              variant="outline-success"
+              style={{ width: "100%" }}
+              //   onClick={handleSearch}
+            >
               Search
             </Button>
           </Col>

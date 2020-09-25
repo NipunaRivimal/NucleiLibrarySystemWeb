@@ -42,6 +42,34 @@ export const getSingleBookAction = (id) => {
   };
 };
 
+export const getFilteredBooksNameAction = (name) => {
+  return (dispatch) => {
+    dispatch({ type: "LOADING" });
+    axios
+      .get(`http://localhost:8081/books/getfilteredbooksname/${name}`)
+      .then((respose) => {
+        dispatch({ type: "GET_BOOKS", payload: respose.data.data });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+};
+
+export const getFilteredBooksAuthorAction = (author) => {
+  return (dispatch) => {
+    dispatch({ type: "LOADING" });
+    axios
+      .get(`http://localhost:8081/books/getfilteredbooksauthor/${author}`)
+      .then((respose) => {
+        dispatch({ type: "GET_BOOKS", payload: respose.data.data });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+};
+
 export const deleteBookAction = (id) => {
   return (dispatch) => {
     dispatch({ type: "LOADING" });

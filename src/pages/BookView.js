@@ -30,11 +30,11 @@ const BookView = (props) => {
 
   const handleClose = () => setShow(false);
   const handleShow = (book) => {
-    setShow(true);
     setBookId(book.bookcode);
     setName(book.name);
     setAuthor(book.author);
     setDescription(book.description);
+    setShow(true);
   };
 
   const handleSubmit = () => {
