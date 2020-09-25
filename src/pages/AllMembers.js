@@ -10,8 +10,11 @@ import {
   InputGroup,
   FormControl,
   Modal,
+  Alert,
 } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
+import useMemberForm from "../customHooks/useMemberForm";
+import validateAddMember from "../customFunctions/validateAddMember";
 import {
   getAllMembersAction,
   addMemberAction,
@@ -21,15 +24,19 @@ import {
 import "./AllMembers.css";
 
 const AllMembers = () => {
+  const { handleChange, handleSubmit, values, errors } = useMemberForm(
+    submit,
+    validateAddMember
+  );
   const [show, setShow] = useState(false);
   const [timeout, setTimeout] = useState(0);
-  const [userId, setUserId] = useState("");
-  const [fName, setFName] = useState("");
-  const [lName, setLName] = useState("");
-  const [mobNo, setMobNo] = useState("");
-  const [homeAddr, setHomeAddr] = useState("");
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  //   const [userId, setUserId] = useState("");
+  //   const [fName, setFName] = useState("");
+  //   const [lName, setLName] = useState("");
+  //   const [mobNo, setMobNo] = useState("");
+  //   const [homeAddr, setHomeAddr] = useState("");
+  //   const [username, setUsername] = useState("");
+  //   const [password, setPassword] = useState("");
   const [joinDate, setJoinDate] = useState("");
   const [searchName, setSearchName] = useState("");
   const [searchId, setSearchId] = useState("");
@@ -44,7 +51,9 @@ const AllMembers = () => {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const handleSubmit = () => {
+
+  function submit() {
+    console.log("user add success");
     var today = new Date();
     var dd = String(today.getDate()).padStart(2, "0");
     var mm = String(today.getMonth() + 1).padStart(2, "0");
@@ -53,25 +62,46 @@ const AllMembers = () => {
     today = mm + "." + dd + "." + yyyy;
 
     addMember({
-      userid: userId,
-      firstname: fName,
-      lastname: lName,
-      mobilenumber: mobNo,
-      homeaddress: homeAddr,
-      username: username,
-      password: password,
+      userid: values.userId,
+      firstname: values.fName,
+      lastname: values.lName,
+      mobilenumber: values.mobNo,
+      homeaddress: values.homeAddr,
+      username: values.username,
+      password: values.password,
       joindate: today,
     });
 
-    setUserId("");
-    setFName("");
-    setLName("");
-    setMobNo("");
-    setHomeAddr("");
-    setUsername("");
-    setPassword("");
     setShow(false);
-  };
+  }
+  //   const handleSubmit = () => {
+  //     var today = new Date();
+  //     var dd = String(today.getDate()).padStart(2, "0");
+  //     var mm = String(today.getMonth() + 1).padStart(2, "0");
+  //     var yyyy = today.getFullYear();
+
+  //     today = mm + "." + dd + "." + yyyy;
+
+  //     addMember({
+  //       userid: userId,
+  //       firstname: fName,
+  //       lastname: lName,
+  //       mobilenumber: mobNo,
+  //       homeaddress: homeAddr,
+  //       username: username,
+  //       password: password,
+  //       joindate: today,
+  //     });
+
+  //     setUserId("");
+  //     setFName("");
+  //     setLName("");
+  //     setMobNo("");
+  //     setHomeAddr("");
+  //     setUsername("");
+  //     setPassword("");
+  //     setShow(false);
+  //   };
 
   //   const handleSearch = () => {
   //     filterMembers(searchName);
@@ -127,9 +157,13 @@ const AllMembers = () => {
               <FormControl
                 id="basic-url"
                 aria-describedby="basic-addon3"
-                onChange={(event) => setUserId(event.target.value)}
+                name="userId"
+                value={values.userId}
+                // onChange={(event) => setUserId(event.target.value)}
+                onChange={handleChange}
               />
             </InputGroup>
+            {errors.userId && <Alert variant="danger">{errors.userId}</Alert>}
             <InputGroup className="mb-3">
               <InputGroup.Prepend>
                 <InputGroup.Text id="basic-addon3">First Name</InputGroup.Text>
@@ -137,9 +171,13 @@ const AllMembers = () => {
               <FormControl
                 id="basic-url"
                 aria-describedby="basic-addon3"
-                onChange={(event) => setFName(event.target.value)}
+                name="fName"
+                value={values.fName}
+                // onChange={(event) => setFName(event.target.value)}
+                onChange={handleChange}
               />
             </InputGroup>
+            {errors.fName && <Alert variant="danger">{errors.fName}</Alert>}
             <InputGroup className="mb-3">
               <InputGroup.Prepend>
                 <InputGroup.Text id="basic-addon3">Last Name</InputGroup.Text>
@@ -147,9 +185,13 @@ const AllMembers = () => {
               <FormControl
                 id="basic-url"
                 aria-describedby="basic-addon3"
-                onChange={(event) => setLName(event.target.value)}
+                name="lName"
+                value={values.lName}
+                // onChange={(event) => setLName(event.target.value)}
+                onChange={handleChange}
               />
             </InputGroup>
+            {errors.lName && <Alert variant="danger">{errors.lName}</Alert>}
             <InputGroup className="mb-3">
               <InputGroup.Prepend>
                 <InputGroup.Text id="basic-addon3">
@@ -159,9 +201,13 @@ const AllMembers = () => {
               <FormControl
                 id="basic-url"
                 aria-describedby="basic-addon3"
-                onChange={(event) => setMobNo(event.target.value)}
+                name="mobNo"
+                value={values.mobNo}
+                // onChange={(event) => setMobNo(event.target.value)}
+                onChange={handleChange}
               />
             </InputGroup>
+            {errors.mobNo && <Alert variant="danger">{errors.mobNo}</Alert>}
             <InputGroup>
               <InputGroup.Prepend>
                 <InputGroup.Text>Home Address</InputGroup.Text>
@@ -169,9 +215,15 @@ const AllMembers = () => {
               <FormControl
                 as="textarea"
                 aria-label="With textarea"
-                onChange={(event) => setHomeAddr(event.target.value)}
+                name="homeAddr"
+                value={values.homeAddr}
+                // onChange={(event) => setHomeAddr(event.target.value)}
+                onChange={handleChange}
               />
             </InputGroup>
+            {errors.homeAddr && (
+              <Alert variant="danger">{errors.homeAddr}</Alert>
+            )}
             <InputGroup className="mb-3">
               <InputGroup.Prepend>
                 <InputGroup.Text id="basic-addon3">Username</InputGroup.Text>
@@ -179,9 +231,15 @@ const AllMembers = () => {
               <FormControl
                 id="basic-url"
                 aria-describedby="basic-addon3"
-                onChange={(event) => setUsername(event.target.value)}
+                name="username"
+                value={values.username}
+                // onChange={(event) => setUsername(event.target.value)}
+                onChange={handleChange}
               />
             </InputGroup>
+            {errors.username && (
+              <Alert variant="danger">{errors.username}</Alert>
+            )}
             <InputGroup className="mb-3">
               <InputGroup.Prepend>
                 <InputGroup.Text id="basic-addon3">Password</InputGroup.Text>
@@ -190,9 +248,15 @@ const AllMembers = () => {
                 type="password"
                 id="basic-url"
                 aria-describedby="basic-addon3"
-                onChange={(event) => setPassword(event.target.value)}
+                name="password"
+                value={values.password}
+                // onChange={(event) => setPassword(event.target.value)}
+                onChange={handleChange}
               />
             </InputGroup>
+            {errors.password && (
+              <Alert variant="danger">{errors.password}</Alert>
+            )}
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={handleClose}>
