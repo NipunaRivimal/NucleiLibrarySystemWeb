@@ -20,10 +20,10 @@ const BookView = (props) => {
     errors,
   } = useBookForm(submit, validateAddBook);
   const [show, setShow] = useState(false);
-  const [bookID, setBookId] = useState("");
-  const [name, setName] = useState("");
-  const [author, setAuthor] = useState("");
-  const [description, setDescription] = useState("");
+  // const [bookID, setBookId] = useState("");
+  // const [name, setName] = useState("");
+  // const [author, setAuthor] = useState("");
+  // const [description, setDescription] = useState("");
   const books = useSelector((state) => state.books.books);
   const loading = useSelector((state) => state.books.loading);
   const deleteStatus = useSelector((state) => state.books.bookdeleted);
@@ -56,6 +56,18 @@ const BookView = (props) => {
     });
     setShow(false);
   }
+
+  const handleIssueUpdate = () => {
+    updateBook(props.match.params.id, {
+      issuestatus: "true",
+    });
+  };
+
+  const handleReturnUpdate = () => {
+    updateBook(props.match.params.id, {
+      issuestatus: "false",
+    });
+  };
   // const handleSubmit = () => {
   //   updateBook(props.match.params.id, {
   //     bookcode: bookID,
@@ -167,25 +179,55 @@ const BookView = (props) => {
       ) : (
         <div>
           <h3>{props.match.params.id}</h3>
-          {books.map((book) => (
-            <div>
-              <h3>{book.bookcode}</h3>
-              <h3>{book.name}</h3>
-              <h5>{book.author}</h5>
-              <h5>{book.description}</h5>
-              <h5>{book.addeddate}</h5>
-              <Button
-                variant="outline-danger"
-                onClick={(e) => deleteBook(props.match.params.id)}
-              >
-                Delete Book
-              </Button>
-              <Button variant="outline-info" onClick={(e) => handleShow(book)}>
-                Update Book
-              </Button>
-              <Button variant="outline-success">Issue Book</Button>
-            </div>
-          ))}
+          {books.map((book) => {
+            return book.issuestatus ? (
+              <div>
+                <h3>{book.bookcode}</h3>
+                <h3>{book.name}</h3>
+                <h5>{book.author}</h5>
+                <h5>{book.description}</h5>
+                <h5>{book.addeddate}</h5>
+                <Button
+                  variant="outline-danger"
+                  onClick={(e) => deleteBook(props.match.params.id)}
+                >
+                  Delete Book
+                </Button>
+                <Button
+                  variant="outline-info"
+                  onClick={(e) => handleShow(book)}
+                >
+                  Update Book
+                </Button>
+                <Button variant="outline-info" onClick={handleReturnUpdate}>
+                  Return Book
+                </Button>
+              </div>
+            ) : (
+              <div>
+                <h3>{book.bookcode}</h3>
+                <h3>{book.name}</h3>
+                <h5>{book.author}</h5>
+                <h5>{book.description}</h5>
+                <h5>{book.addeddate}</h5>
+                <Button
+                  variant="outline-danger"
+                  onClick={(e) => deleteBook(props.match.params.id)}
+                >
+                  Delete Book
+                </Button>
+                <Button
+                  variant="outline-info"
+                  onClick={(e) => handleShow(book)}
+                >
+                  Update Book
+                </Button>
+                <Button variant="outline-success" onClick={handleIssueUpdate}>
+                  Issue Book
+                </Button>
+              </div>
+            );
+          })}
         </div>
       )}
     </div>

@@ -30,10 +30,10 @@ const AllBooks = () => {
     validateAddBook
   );
   const [show, setShow] = useState(false);
-  const [bookID, setBookId] = useState("");
-  const [name, setName] = useState("");
-  const [author, setAuthor] = useState("");
-  const [description, setDescription] = useState("");
+  // const [bookID, setBookId] = useState("");
+  // const [name, setName] = useState("");
+  // const [author, setAuthor] = useState("");
+  // const [description, setDescription] = useState("");
   // const [values, setValues] = useState({
   //   bookID: "",
   //   name: "",
