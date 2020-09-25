@@ -40,7 +40,6 @@ const booksReducer = (state = initialState, Action) => {
     case "DELETE_BOOK":
       return {
         ...state,
-        // news: Action.payload,
         loading: false,
         bookdeleted: true,
       };

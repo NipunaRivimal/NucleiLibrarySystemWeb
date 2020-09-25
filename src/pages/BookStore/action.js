@@ -42,7 +42,7 @@ export const getSingleBookAction = (id) => {
   };
 };
 
-export const deleteBookAction = (id, path) => {
+export const deleteBookAction = (id) => {
   return (dispatch) => {
     dispatch({ type: "LOADING" });
     axios

@@ -21,7 +21,7 @@ const BookView = (props) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const getSingleBook = (id) => dispatch(getSingleBookAction(id));
-  const deleteBook = (id, path) => dispatch(deleteBookAction(id, path));
+  const deleteBook = (id) => dispatch(deleteBookAction(id));
   const updateBook = (id, book) => dispatch(updateBookAction(id, book));
 
   useEffect(() => {
@@ -52,7 +52,7 @@ const BookView = (props) => {
   };
 
   if (deleteStatus) {
-    return <Redirect to="/allbooks" />;
+    return <Redirect to={"/" + props.match.params.pagecategory} />;
   }
 
   return (
@@ -143,7 +143,7 @@ const BookView = (props) => {
               <h5>{book.addeddate}</h5>
               <Button
                 variant="outline-danger"
-                onClick={(e) => deleteBook(props.match.params.id, "/allbooks")}
+                onClick={(e) => deleteBook(props.match.params.id)}
               >
                 Delete Book
               </Button>

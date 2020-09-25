@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Loader from "../components/Loader";
+import BookCard from "../components/BookCard";
 import "./BookPage.css";
 import {
   Card,
@@ -159,27 +160,7 @@ const AllBooks = () => {
             {books.map((book) => (
               <Col lg={3} md={4} xs={12}>
                 <div className="bookCard">
-                  <Card>
-                    <Card.Img
-                      variant="top"
-                      src="https://thewritelife.com/wp-content/uploads/2019/08/How-to-format-a-book.jpg"
-                    />
-                    <Card.Body>
-                      <Card.Title>{book.name}</Card.Title>
-                      <Link
-                        to={{
-                          pathname: `/viewbook/${book._id}/${"allbooks"}`,
-                        }}
-                      >
-                        <Button
-                          variant="outline-primary"
-                          className="view-book-button"
-                        >
-                          View
-                        </Button>
-                      </Link>
-                    </Card.Body>
-                  </Card>
+                  <BookCard book={book} from="allbooks" />
                 </div>
               </Col>
             ))}
