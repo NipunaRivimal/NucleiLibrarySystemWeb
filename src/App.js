@@ -6,6 +6,7 @@ import AllBooks from "./pages/AllBooks";
 import BorrowedBooks from "./pages/BorrowedBooks";
 import AvailableBooks from "./pages/AvailableBooks";
 import BookView from "./pages/BookView";
+import AllMembers from "./pages/AllMembers";
 import Loader from "./components/Loader";
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
             static
             component={BookView}
           />
+          <Route path="/allmembers" exact static component={AllMembers} />
         </Switch>
       </BrowserRouter>
     </div>

@@ -22,6 +22,10 @@ const Navbar = () => {
           {/* <Nav.Link href="/avabooks">Users</Nav.Link> */}
           <Link to="/availablebooks">Available Books</Link>
         </Nav.Item>
+        <Nav.Item>
+          {/* <Nav.Link href="/avabooks">Users</Nav.Link> */}
+          <Link to="/allmembers">Members</Link>
+        </Nav.Item>
       </Nav>
     </div>
   );
