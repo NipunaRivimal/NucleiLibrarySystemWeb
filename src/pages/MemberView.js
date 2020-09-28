@@ -198,7 +198,7 @@ const MemberView = (props) => {
               />
             </InputGroup>
             {errors.email && <Alert variant="danger">{errors.email}</Alert>}
-            <InputGroup className="mb-3">
+            {/* <InputGroup className="mb-3">
               <InputGroup.Prepend>
                 <InputGroup.Text id="basic-addon3">Password</InputGroup.Text>
               </InputGroup.Prepend>
@@ -214,7 +214,7 @@ const MemberView = (props) => {
             </InputGroup>
             {errors.password && (
               <Alert variant="danger">{errors.password}</Alert>
-            )}
+            )} */}
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={handleClose}>
