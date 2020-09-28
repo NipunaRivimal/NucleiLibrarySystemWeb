@@ -106,6 +106,11 @@ const IssueBook = (props) => {
             variant="outline-success"
             style={{ width: "50%" }}
             onClick={handleIssueUpdate}
+            disabled={
+              id.length > 0 && iDate.length > 0 && dDate.length > 0
+                ? false
+                : true
+            }
           >
             Done
           </Button>
