@@ -5,6 +5,7 @@ import App from "./App";
 import "bootstrap/dist/css/bootstrap.min.css";
 import * as serviceWorker from "./serviceWorker";
 
+import authReducer from "./pages/AuthStore/reducer";
 import bookReducer from "./pages/BookStore/reducer";
 import memberReducer from "./pages/UserStore/reducer";
 import { createStore, combineReducers, applyMiddleware, compose } from "redux";
@@ -13,7 +14,11 @@ import thunk from "redux-thunk";
 
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(
-  combineReducers({ books: bookReducer, members: memberReducer }),
+  combineReducers({
+    books: bookReducer,
+    members: memberReducer,
+    auth: authReducer,
+  }),
   composeEnhancer(applyMiddleware(thunk))
 );
 

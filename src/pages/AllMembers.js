@@ -69,6 +69,7 @@ const AllMembers = () => {
       homeaddress: values.homeAddr,
       email: values.email,
       password: values.password,
+      usertype: "member",
       joindate: today,
     });
 
