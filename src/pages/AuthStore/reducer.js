@@ -18,6 +18,13 @@ const authReducer = (state = initialState, Action) => {
         ...state,
         members: Action.payload,
         loading: false,
+        loginStatus: true,
+      };
+    case "LOGIN_FAIL":
+      return {
+        ...state,
+        loading: false,
+        loginStatus: false,
       };
     default:
       return state;

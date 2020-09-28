@@ -16,7 +16,7 @@ const Navbar = () => {
         </Nav.Item>
         <Nav.Item>
           {/* <Nav.Link href="/avabooks">Users</Nav.Link> */}
-          <Link to="/borrowedbooks">Borrowed Books</Link>
+          <Link to="/issuedbooks">Issued Books</Link>
         </Nav.Item>
         <Nav.Item>
           {/* <Nav.Link href="/avabooks">Users</Nav.Link> */}

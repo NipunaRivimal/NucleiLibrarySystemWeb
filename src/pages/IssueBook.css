@@ -1,0 +1,12 @@
+.issue-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  margin: 50px;
+}
+
+.date-picker {
+  padding-top: 10px;
+}

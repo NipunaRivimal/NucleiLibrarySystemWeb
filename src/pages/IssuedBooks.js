@@ -5,16 +5,16 @@ import BookCard from "../components/BookCard";
 import "./BookPage.css";
 import { Card, Button, Row, Col, Container } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
-import { getSelectedBooksByUserAction } from "./BookStore/action";
+import { getSelectedBooksAction } from "./BookStore/action";
 
-const BorrowedBooks = (props) => {
+const BorrowedBooks = () => {
   const books = useSelector((state) => state.books.books);
   const loading = useSelector((state) => state.books.loading);
   const dispatch = useDispatch();
-  const getBorrowedBooks = (id) => dispatch(getSelectedBooksByUserAction(id));
+  const getIssuedBooks = (status) => dispatch(getSelectedBooksAction(status));
 
   useEffect(() => {
-    getBorrowedBooks(props.match.params.id);
+    getIssuedBooks("true");
   }, []);
 
   return (
@@ -27,7 +27,7 @@ const BorrowedBooks = (props) => {
             {books.map((book) => (
               <Col lg={3} md={4} xs={12}>
                 <div className="bookCard">
-                  <BookCard book={book} from="borrowedbooks" />
+                  <BookCard book={book} from="issuedbooks" />
                 </div>
               </Col>
             ))}

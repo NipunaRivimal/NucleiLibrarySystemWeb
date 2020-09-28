@@ -28,6 +28,20 @@ export const getSelectedBooksAction = (status) => {
   };
 };
 
+export const getSelectedBooksByUserAction = (id) => {
+  return (dispatch) => {
+    dispatch({ type: "LOADING" });
+    axios
+      .get(`http://localhost:8081/books/getselectedbooksbyuser/${id}`)
+      .then((respose) => {
+        dispatch({ type: "GET_BOOKS", payload: respose.data.data });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+};
+
 export const getSingleBookAction = (id) => {
   return (dispatch) => {
     dispatch({ type: "LOADING" });

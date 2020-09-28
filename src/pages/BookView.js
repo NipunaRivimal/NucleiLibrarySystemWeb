@@ -1,7 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Link, useHistory, Redirect } from "react-router-dom";
 import Loader from "../components/Loader";
-import { Button, Modal, InputGroup, FormControl, Alert } from "react-bootstrap";
+import {
+  Button,
+  Modal,
+  InputGroup,
+  FormControl,
+  Alert,
+  Table,
+} from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import useBookForm from "../customHooks/useBookForm";
 import validateAddBook from "../customFunctions/validateAddBook";
@@ -20,6 +27,7 @@ const BookView = (props) => {
     errors,
   } = useBookForm(submit, validateAddBook);
   const [show, setShow] = useState(false);
+  const [membersVisibility, setMembersVisibility] = useState(false);
   // const [bookID, setBookId] = useState("");
   // const [name, setName] = useState("");
   // const [author, setAuthor] = useState("");
@@ -60,6 +68,9 @@ const BookView = (props) => {
   const handleIssueUpdate = () => {
     updateBook(props.match.params.id, {
       issuestatus: "true",
+      borrower: "qwerty",
+      issueddate: "2020.09.27",
+      returndate: "2020.09.30",
     });
   };
 
@@ -67,6 +78,10 @@ const BookView = (props) => {
     updateBook(props.match.params.id, {
       issuestatus: "false",
     });
+  };
+
+  const visibleMemberSearch = () => {
+    setMembersVisibility(true);
   };
   // const handleSubmit = () => {
   //   updateBook(props.match.params.id, {
@@ -222,9 +237,14 @@ const BookView = (props) => {
                 >
                   Update Book
                 </Button>
-                <Button variant="outline-success" onClick={handleIssueUpdate}>
-                  Issue Book
-                </Button>
+
+                <Link
+                  to={{
+                    pathname: `/issuebook/${props.match.params.id}`,
+                  }}
+                >
+                  <Button variant="outline-success">Issue Book</Button>
+                </Link>
               </div>
             );
           })}
