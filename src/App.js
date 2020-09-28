@@ -8,6 +8,7 @@ import AvailableBooks from "./pages/AvailableBooks";
 import BookView from "./pages/BookView";
 import AllMembers from "./pages/AllMembers";
 import MemberView from "./pages/MemberView";
+import Login from "./pages/Login";
 import Loader from "./components/Loader";
 
 function App() {
@@ -34,6 +35,7 @@ function App() {
           />
           <Route path="/allmembers" exact static component={AllMembers} />
           <Route path="/viewmember/:id" exact static component={MemberView} />
+          <Route path="/login" exact static component={Login} />
         </Switch>
       </BrowserRouter>
     </div>
