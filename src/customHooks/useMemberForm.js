@@ -7,7 +7,7 @@ const useMemberForm = (callback, validateAddMember) => {
     lName: "",
     mobNo: "",
     homeAddr: "",
-    username: "",
+    email: "",
     password: "",
   });
 
@@ -28,7 +28,7 @@ const useMemberForm = (callback, validateAddMember) => {
       lName: member.lastname,
       mobNo: member.mobilenumber,
       homeAddr: member.homeaddress,
-      username: member.username,
+      email: member.email,
       password: member.password,
     });
   };

@@ -16,8 +16,8 @@ export default function validateAddMember(values) {
   if (!values.homeAddr) {
     errors.homeAddr = "Home address is required!";
   }
-  if (!values.username) {
-    errors.username = "Username is required!";
+  if (!values.email) {
+    errors.email = "Email address is required!";
   }
   if (!values.password) {
     errors.password = "Password is required!";

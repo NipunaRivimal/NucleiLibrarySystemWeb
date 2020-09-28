@@ -62,7 +62,7 @@ const MemberView = (props) => {
       lastname: values.lName,
       mobilenumber: values.mobNo,
       homeaddress: values.homeAddr,
-      username: values.username,
+      email: values.email,
       password: values.password,
     });
 
@@ -191,15 +191,13 @@ const MemberView = (props) => {
               <FormControl
                 id="basic-url"
                 aria-describedby="basic-addon3"
-                name="username"
-                value={values.username}
+                name="email"
+                value={values.email}
                 // onChange={(event) => setUsername(event.target.value)}
                 onChange={handleChange}
               />
             </InputGroup>
-            {errors.username && (
-              <Alert variant="danger">{errors.username}</Alert>
-            )}
+            {errors.email && <Alert variant="danger">{errors.email}</Alert>}
             <InputGroup className="mb-3">
               <InputGroup.Prepend>
                 <InputGroup.Text id="basic-addon3">Password</InputGroup.Text>
