@@ -20,6 +20,19 @@ const useMemberForm = (callback, validateAddMember) => {
     });
   };
 
+  const handleChangeDefault = () => {
+    setValues({
+      ...values,
+      userId: "",
+      fName: "",
+      lName: "",
+      mobNo: "",
+      homeAddr: "",
+      email: "",
+      password: "",
+    });
+  };
+
   const handleShowSetValues = (member) => {
     setValues({
       ...values,
@@ -48,6 +61,7 @@ const useMemberForm = (callback, validateAddMember) => {
 
   return {
     handleChange,
+    handleChangeDefault,
     handleSubmit,
     handleShowSetValues,
     values,

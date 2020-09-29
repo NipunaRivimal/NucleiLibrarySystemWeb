@@ -24,10 +24,13 @@ import {
 import "./AllMembers.css";
 
 const AllMembers = () => {
-  const { handleChange, handleSubmit, values, errors } = useMemberForm(
-    submit,
-    validateAddMember
-  );
+  const {
+    handleChange,
+    handleChangeDefault,
+    handleSubmit,
+    values,
+    errors,
+  } = useMemberForm(submit, validateAddMember);
   const [show, setShow] = useState(false);
   const [timeout, setTimeout] = useState(0);
   //   const [userId, setUserId] = useState("");
@@ -74,6 +77,7 @@ const AllMembers = () => {
     });
 
     setShow(false);
+    handleChangeDefault();
   }
   //   const handleSubmit = () => {
   //     var today = new Date();
