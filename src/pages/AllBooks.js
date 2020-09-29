@@ -25,10 +25,13 @@ import {
 } from "./BookStore/action";
 
 const AllBooks = () => {
-  const { handleChange, handleSubmit, values, errors } = useBookForm(
-    submit,
-    validateAddBook
-  );
+  const {
+    handleChange,
+    handleChangeDefault,
+    handleSubmit,
+    values,
+    errors,
+  } = useBookForm(submit, validateAddBook);
   const [show, setShow] = useState(false);
   // const [bookID, setBookId] = useState("");
   // const [name, setName] = useState("");
@@ -114,6 +117,7 @@ const AllBooks = () => {
     });
 
     setShow(false);
+    handleChangeDefault();
   }
 
   // const handleChange = (event) => {

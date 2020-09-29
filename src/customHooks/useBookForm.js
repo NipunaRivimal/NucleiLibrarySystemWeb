@@ -17,6 +17,16 @@ const useBookForm = (callback, validateAddBook) => {
     });
   };
 
+  const handleChangeDefault = () => {
+    setValues({
+      ...values,
+      bookID: "",
+      name: "",
+      author: "",
+      description: "",
+    });
+  };
+
   const handleShowSetValues = (book) => {
     setValues({
       ...values,
@@ -42,6 +52,7 @@ const useBookForm = (callback, validateAddBook) => {
 
   return {
     handleChange,
+    handleChangeDefault,
     handleSubmit,
     handleShowSetValues,
     values,
