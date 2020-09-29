@@ -6,11 +6,22 @@ export const loginAction = (userCredintials) => {
     axios
       .post("http://localhost:8081/auth/login", userCredintials)
       .then((respose) => {
-        if (respose.status === 200)
+        if (respose.data.status === 200) {
           dispatch({ type: "LOGIN_SUCCESS", payload: respose.data.data });
+        } else if (respose.data.status === 600 || respose.data.status === 601) {
+          dispatch({ type: "LOGIN_FAIL", payload: respose.data.message });
+        } else {
+          dispatch({
+            type: "LOGIN_FAIL",
+            payload: "Something wrong! Please try again.",
+          });
+        }
       })
       .catch((error) => {
-        console.log(error);
+        dispatch({
+          type: "LOGIN_FAIL",
+          payload: "Something wrong! Please try again.",
+        });
       });
   };
 };

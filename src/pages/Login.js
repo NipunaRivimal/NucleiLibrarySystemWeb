@@ -15,6 +15,8 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const member = useSelector((state) => state.auth.members);
+  const loginStatus = useSelector((state) => state.auth.loginStatus);
+  const loginErrors = useSelector((state) => state.auth.loginErrors);
   const dispatch = useDispatch();
   const userLogin = (userCredintials) => dispatch(loginAction(userCredintials));
 
@@ -43,7 +45,6 @@ const Login = () => {
   return (
     <div className="page-content">
       <div>
-        {member ? <h4>Hi {member.email}</h4> : <h4>No</h4>}
         <InputGroup className="mb-3">
           <InputGroup.Prepend>
             <InputGroup.Text id="basic-addon1">Email</InputGroup.Text>
@@ -74,6 +75,9 @@ const Login = () => {
           />
         </InputGroup>
         {errors.password && <Alert variant="danger">{errors.password}</Alert>}
+        {loginStatus && loginErrors && loginStatus == "fail" && (
+          <Alert variant="danger">{loginErrors}</Alert>
+        )}
         <Button
           variant="outline-success"
           style={{ width: "100%" }}

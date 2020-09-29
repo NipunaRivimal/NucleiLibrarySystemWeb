@@ -3,7 +3,7 @@ const initialState = {
   loading: false,
   loginStatus: "",
   userType: "",
-  errors: "",
+  loginErrors: "",
 };
 
 const authReducer = (state = initialState, Action) => {
@@ -25,6 +25,7 @@ const authReducer = (state = initialState, Action) => {
         ...state,
         loading: false,
         loginStatus: "fail",
+        loginErrors: Action.payload,
       };
     default:
       return state;
