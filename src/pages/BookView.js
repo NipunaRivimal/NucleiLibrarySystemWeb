@@ -35,6 +35,7 @@ const BookView = (props) => {
   const books = useSelector((state) => state.books.books);
   const loading = useSelector((state) => state.books.loading);
   const deleteStatus = useSelector((state) => state.books.bookdeleted);
+  const members = useSelector((state) => state.auth.members);
   const dispatch = useDispatch();
   const history = useHistory();
   const getSingleBook = (id) => dispatch(getSingleBookAction(id));
@@ -106,13 +107,15 @@ const BookView = (props) => {
 
   return (
     <div className="container">
-      <Link
+      {/* <Link
         to={{
           pathname: `/${props.match.params.pagecategory}`,
         }}
-      >
-        <Button variant="outline-secondary">Back</Button>
-      </Link>
+      > */}
+      <Button variant="outline-secondary" onClick={(e) => history.goBack()}>
+        Back
+      </Button>
+      {/* </Link> */}
       <Modal
         size="lg"
         show={show}
@@ -205,21 +208,28 @@ const BookView = (props) => {
                 <h5>{book.author}</h5>
                 <h5>{book.description}</h5>
                 <h5>{book.addeddate}</h5>
-                <Button
-                  variant="outline-danger"
-                  onClick={(e) => deleteBook(props.match.params.id)}
-                >
-                  Delete
-                </Button>
-                <Button
-                  variant="outline-info"
-                  onClick={(e) => handleShow(book)}
-                >
-                  Update
-                </Button>
-                <Button variant="outline-info" onClick={handleReturnUpdate}>
-                  Return
-                </Button>
+                {members.usertype == "admin" ? (
+                  <>
+                    <Button
+                      variant="outline-danger"
+                      onClick={(e) => deleteBook(props.match.params.id)}
+                    >
+                      Delete
+                    </Button>
+
+                    <Button
+                      variant="outline-info"
+                      onClick={(e) => handleShow(book)}
+                    >
+                      Update
+                    </Button>
+                    <Button variant="outline-info" onClick={handleReturnUpdate}>
+                      Return
+                    </Button>
+                  </>
+                ) : (
+                  ""
+                )}
               </div>
             ) : (
               <div>
@@ -228,26 +238,32 @@ const BookView = (props) => {
                 <h5>{book.author}</h5>
                 <h5>{book.description}</h5>
                 <h5>{book.addeddate}</h5>
-                <Button
-                  variant="outline-danger"
-                  onClick={(e) => deleteBook(props.match.params.id)}
-                >
-                  Delete
-                </Button>
-                <Button
-                  variant="outline-info"
-                  onClick={(e) => handleShow(book)}
-                >
-                  Update
-                </Button>
+                {members.usertype == "admin" ? (
+                  <>
+                    <Button
+                      variant="outline-danger"
+                      onClick={(e) => deleteBook(props.match.params.id)}
+                    >
+                      Delete
+                    </Button>
+                    <Button
+                      variant="outline-info"
+                      onClick={(e) => handleShow(book)}
+                    >
+                      Update
+                    </Button>
 
-                <Link
-                  to={{
-                    pathname: `/issuebook/${props.match.params.id}`,
-                  }}
-                >
-                  <Button variant="outline-success">Issue</Button>
-                </Link>
+                    <Link
+                      to={{
+                        pathname: `/issuebook/${props.match.params.id}`,
+                      }}
+                    >
+                      <Button variant="outline-success">Issue</Button>
+                    </Link>
+                  </>
+                ) : (
+                  ""
+                )}
               </div>
             );
           })}

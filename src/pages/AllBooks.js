@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Loader from "../components/Loader";
 import BookCard from "../components/BookCard";
+import NavBarSub from "../components/NavbarSub";
 import "./BookPage.css";
 import {
   Card,
@@ -143,142 +144,145 @@ const AllBooks = () => {
     setSearchAuthor(event.target.value);
   };
   return (
-    <div className="page-content">
-      <Modal
-        size="lg"
-        show={show}
-        onHide={handleClose}
-        backdrop="static"
-        keyboard={false}
-      >
-        <Modal.Header closeButton>
-          <Modal.Title>Add New Book</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <InputGroup className="mb-3">
-            <InputGroup.Prepend>
-              <InputGroup.Text id="basic-addon3">Book ID</InputGroup.Text>
-            </InputGroup.Prepend>
-            <FormControl
-              id="basic-url"
-              aria-describedby="basic-addon3"
-              name="bookID"
-              value={values.bookID}
-              // onChange={(event) => setBookId(event.target.value)}
-              onChange={handleChange}
-            />
-          </InputGroup>
-          {errors.bookID && <Alert variant="danger">{errors.bookID}</Alert>}
-          <InputGroup className="mb-3">
-            <InputGroup.Prepend>
-              <InputGroup.Text id="basic-addon3">Name</InputGroup.Text>
-            </InputGroup.Prepend>
-            <FormControl
-              id="basic-url"
-              aria-describedby="basic-addon3"
-              name="name"
-              value={values.name}
-              // onChange={(event) => setName(event.target.value)}
-              onChange={handleChange}
-            />
-          </InputGroup>
-          {errors.name && <Alert variant="danger">{errors.name}</Alert>}
-          <InputGroup className="mb-3">
-            <InputGroup.Prepend>
-              <InputGroup.Text id="basic-addon3">Author</InputGroup.Text>
-            </InputGroup.Prepend>
-            <FormControl
-              id="basic-url"
-              aria-describedby="basic-addon3"
-              name="author"
-              value={values.author}
-              // onChange={(event) => setAuthor(event.target.value)}
-              onChange={handleChange}
-            />
-          </InputGroup>
-          {errors.author && <Alert variant="danger">{errors.author}</Alert>}
-          <InputGroup>
-            <InputGroup.Prepend>
-              <InputGroup.Text>Description</InputGroup.Text>
-            </InputGroup.Prepend>
-            <FormControl
-              as="textarea"
-              aria-label="With textarea"
-              name="description"
-              value={values.description}
-              // onChange={(event) => setDescription(event.target.value)}
-              onChange={handleChange}
-            />
-          </InputGroup>
-          {errors.description && (
-            <Alert variant="danger">{errors.description}</Alert>
-          )}
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={handleSubmit}>
-            Add
-          </Button>
-        </Modal.Footer>
-      </Modal>
-      <Container>
-        <Row>
-          <Col lg={4}>
+    <>
+      <NavBarSub />
+      <div className="page-content">
+        <Modal
+          size="lg"
+          show={show}
+          onHide={handleClose}
+          backdrop="static"
+          keyboard={false}
+        >
+          <Modal.Header closeButton>
+            <Modal.Title>Add New Book</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
             <InputGroup className="mb-3">
+              <InputGroup.Prepend>
+                <InputGroup.Text id="basic-addon3">Book ID</InputGroup.Text>
+              </InputGroup.Prepend>
               <FormControl
-                placeholder="Search by name..."
-                aria-label="Amount (to the nearest dollar)"
-                value={searchName}
-                onChange={(event) => {
-                  searchByNameHandler(event);
-                }}
+                id="basic-url"
+                aria-describedby="basic-addon3"
+                name="bookID"
+                value={values.bookID}
+                // onChange={(event) => setBookId(event.target.value)}
+                onChange={handleChange}
               />
             </InputGroup>
-          </Col>
-          <Col lg={4}>
+            {errors.bookID && <Alert variant="danger">{errors.bookID}</Alert>}
             <InputGroup className="mb-3">
+              <InputGroup.Prepend>
+                <InputGroup.Text id="basic-addon3">Name</InputGroup.Text>
+              </InputGroup.Prepend>
               <FormControl
-                placeholder="Search by author..."
-                aria-label="Amount (to the nearest dollar)"
-                value={searchAuthor}
-                onChange={(event) => {
-                  searchByAuthorHandler(event);
-                }}
+                id="basic-url"
+                aria-describedby="basic-addon3"
+                name="name"
+                value={values.name}
+                // onChange={(event) => setName(event.target.value)}
+                onChange={handleChange}
               />
             </InputGroup>
-          </Col>
-          <Col lg={2}>
-            <Button variant="outline-success" style={{ width: "100%" }}>
-              Search
+            {errors.name && <Alert variant="danger">{errors.name}</Alert>}
+            <InputGroup className="mb-3">
+              <InputGroup.Prepend>
+                <InputGroup.Text id="basic-addon3">Author</InputGroup.Text>
+              </InputGroup.Prepend>
+              <FormControl
+                id="basic-url"
+                aria-describedby="basic-addon3"
+                name="author"
+                value={values.author}
+                // onChange={(event) => setAuthor(event.target.value)}
+                onChange={handleChange}
+              />
+            </InputGroup>
+            {errors.author && <Alert variant="danger">{errors.author}</Alert>}
+            <InputGroup>
+              <InputGroup.Prepend>
+                <InputGroup.Text>Description</InputGroup.Text>
+              </InputGroup.Prepend>
+              <FormControl
+                as="textarea"
+                aria-label="With textarea"
+                name="description"
+                value={values.description}
+                // onChange={(event) => setDescription(event.target.value)}
+                onChange={handleChange}
+              />
+            </InputGroup>
+            {errors.description && (
+              <Alert variant="danger">{errors.description}</Alert>
+            )}
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleClose}>
+              Close
             </Button>
-          </Col>
-          <Col lg={2}>
-            <Button
-              variant="outline-dark"
-              style={{ width: "100%" }}
-              onClick={handleShow}
-            >
-              Add new book
+            <Button variant="primary" onClick={handleSubmit}>
+              Add
             </Button>
-          </Col>
-        </Row>
-        {loading ? (
-          <Loader />
-        ) : (
+          </Modal.Footer>
+        </Modal>
+        <Container>
           <Row>
-            {books.map((book) => (
-              <Col lg={3} md={4} xs={12}>
-                <div className="bookCard">
-                  <BookCard book={book} from="allbooks" />
-                </div>
-              </Col>
-            ))}
+            <Col lg={4}>
+              <InputGroup className="mb-3">
+                <FormControl
+                  placeholder="Search by name..."
+                  aria-label="Amount (to the nearest dollar)"
+                  value={searchName}
+                  onChange={(event) => {
+                    searchByNameHandler(event);
+                  }}
+                />
+              </InputGroup>
+            </Col>
+            <Col lg={4}>
+              <InputGroup className="mb-3">
+                <FormControl
+                  placeholder="Search by author..."
+                  aria-label="Amount (to the nearest dollar)"
+                  value={searchAuthor}
+                  onChange={(event) => {
+                    searchByAuthorHandler(event);
+                  }}
+                />
+              </InputGroup>
+            </Col>
+            <Col lg={2}>
+              <Button variant="outline-success" style={{ width: "100%" }}>
+                Search
+              </Button>
+            </Col>
+            <Col lg={2}>
+              <Button
+                variant="outline-dark"
+                style={{ width: "100%" }}
+                onClick={handleShow}
+              >
+                Add new book
+              </Button>
+            </Col>
           </Row>
-        )}
-      </Container>
-    </div>
+          {loading ? (
+            <Loader />
+          ) : (
+            <Row>
+              {books.map((book) => (
+                <Col lg={3} md={4} xs={12}>
+                  <div className="bookCard">
+                    <BookCard book={book} from="allbooks" />
+                  </div>
+                </Col>
+              ))}
+            </Row>
+          )}
+        </Container>
+      </div>
+    </>
   );
 };
 

@@ -7,11 +7,16 @@ export const loginAction = (userCredintials) => {
       .post("http://localhost:8081/auth/login", userCredintials)
       .then((respose) => {
         if (respose.data.status === 200) {
-          dispatch({ type: "LOGIN_SUCCESS", payload: respose.data.data });
+          dispatch({
+            type: "LOGIN_SUCCESS",
+            payload: respose.data.data,
+          });
           localStorage.setItem(
             "login",
             JSON.stringify({
               login: true,
+              userid: respose.data.data.userid,
+              usertype: respose.data.data.usertype,
               token: respose.data.token,
             })
           );
@@ -30,5 +35,19 @@ export const loginAction = (userCredintials) => {
           payload: "Something wrong! Please try again.",
         });
       });
+  };
+};
+
+export const refreshLoginAction = (user) => {
+  return (dispatch) => {
+    dispatch({ type: "LOADING" });
+    dispatch({ type: "REFRESH_LOGIN", payload: user });
+  };
+};
+
+export const logoutAction = (user) => {
+  return (dispatch) => {
+    dispatch({ type: "LOADING" });
+    dispatch({ type: "LOGOUT" });
   };
 };
