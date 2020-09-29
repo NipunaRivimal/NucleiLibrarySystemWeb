@@ -244,7 +244,7 @@ const MemberView = (props) => {
                 <h5>{member.lastname}</h5>
                 <h5>{member.mobilenumber}</h5>
                 <h5>{member.homeaddress}</h5>
-                <h5>{member.username}</h5>
+                <h5>{member.email}</h5>
                 <h5>{member.joindate}</h5>
                 <Button
                   variant="outline-danger"

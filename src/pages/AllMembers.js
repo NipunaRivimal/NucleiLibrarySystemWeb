@@ -14,6 +14,7 @@ import {
 } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import useMemberForm from "../customHooks/useMemberForm";
+import useIsMount from "../customHooks/useIsMount";
 import validateAddMember from "../customFunctions/validateAddMember";
 import {
   getAllMembersAction,
@@ -24,6 +25,7 @@ import {
 import "./AllMembers.css";
 
 const AllMembers = () => {
+  const isMount = useIsMount();
   const {
     handleChange,
     handleChangeDefault,
@@ -117,18 +119,22 @@ const AllMembers = () => {
   //   }, []);
 
   useEffect(() => {
-    const debouncer = window.setTimeout(() => {
-      if (searchName.length > 0) {
-        filterMembersName(searchName);
-      } else if (searchId.length > 0) {
-        filterMembersId(searchId);
-      } else {
-        getAllMembers();
-      }
-    }, 1000);
-    return () => {
-      window.clearTimeout(debouncer);
-    };
+    if (!isMount) {
+      const debouncer = window.setTimeout(() => {
+        if (searchName.length > 0) {
+          filterMembersName(searchName);
+        } else if (searchId.length > 0) {
+          filterMembersId(searchId);
+        } else {
+          getAllMembers();
+        }
+      }, 1000);
+      return () => {
+        window.clearTimeout(debouncer);
+      };
+    } else {
+      getAllMembers();
+    }
   }, [searchName, searchId]);
 
   const searchByNameHandler = (event) => {

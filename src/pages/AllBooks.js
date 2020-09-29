@@ -16,6 +16,7 @@ import {
 } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import useBookForm from "../customHooks/useBookForm";
+import useIsMount from "../customHooks/useIsMount";
 import validateAddBook from "../customFunctions/validateAddBook";
 import {
   getAllBooksAction,
@@ -25,6 +26,7 @@ import {
 } from "./BookStore/action";
 
 const AllBooks = () => {
+  const isMount = useIsMount();
   const {
     handleChange,
     handleChangeDefault,
@@ -59,18 +61,22 @@ const AllBooks = () => {
   // }, []);
 
   useEffect(() => {
-    const debouncer = window.setTimeout(() => {
-      if (searchName.length > 0) {
-        filterBooks(searchName);
-      } else if (searchAuthor.length > 0) {
-        filterBooksAuthor(searchAuthor);
-      } else {
-        getAllBooks();
-      }
-    }, 1000);
-    return () => {
-      window.clearTimeout(debouncer);
-    };
+    if (!useIsMount) {
+      const debouncer = window.setTimeout(() => {
+        if (searchName.length > 0) {
+          filterBooks(searchName);
+        } else if (searchAuthor.length > 0) {
+          filterBooksAuthor(searchAuthor);
+        } else {
+          getAllBooks();
+        }
+      }, 1000);
+      return () => {
+        window.clearTimeout(debouncer);
+      };
+    } else {
+      getAllBooks();
+    }
   }, [searchName, searchAuthor]);
 
   const handleClose = () => setShow(false);
