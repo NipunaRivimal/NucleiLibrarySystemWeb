@@ -250,13 +250,13 @@ const MemberView = (props) => {
                   variant="outline-danger"
                   onClick={(e) => deleteMember(props.match.params.id)}
                 >
-                  Delete Member
+                  Delete
                 </Button>
                 <Button
                   variant="outline-info"
                   onClick={(e) => handleShow(member)}
                 >
-                  Update Member
+                  Update
                 </Button>
               </div>
             ))}

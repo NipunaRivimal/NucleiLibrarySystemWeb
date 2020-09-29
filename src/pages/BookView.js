@@ -206,16 +206,16 @@ const BookView = (props) => {
                   variant="outline-danger"
                   onClick={(e) => deleteBook(props.match.params.id)}
                 >
-                  Delete Book
+                  Delete
                 </Button>
                 <Button
                   variant="outline-info"
                   onClick={(e) => handleShow(book)}
                 >
-                  Update Book
+                  Update
                 </Button>
                 <Button variant="outline-info" onClick={handleReturnUpdate}>
-                  Return Book
+                  Return
                 </Button>
               </div>
             ) : (
@@ -229,13 +229,13 @@ const BookView = (props) => {
                   variant="outline-danger"
                   onClick={(e) => deleteBook(props.match.params.id)}
                 >
-                  Delete Book
+                  Delete
                 </Button>
                 <Button
                   variant="outline-info"
                   onClick={(e) => handleShow(book)}
                 >
-                  Update Book
+                  Update
                 </Button>
 
                 <Link
@@ -243,7 +243,7 @@ const BookView = (props) => {
                     pathname: `/issuebook/${props.match.params.id}`,
                   }}
                 >
-                  <Button variant="outline-success">Issue Book</Button>
+                  <Button variant="outline-success">Issue</Button>
                 </Link>
               </div>
             );
