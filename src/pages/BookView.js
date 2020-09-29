@@ -65,18 +65,21 @@ const BookView = (props) => {
     setShow(false);
   }
 
-  const handleIssueUpdate = () => {
-    updateBook(props.match.params.id, {
-      issuestatus: "true",
-      borrower: "qwerty",
-      issueddate: "2020.09.27",
-      returndate: "2020.09.30",
-    });
-  };
+  // const handleIssueUpdate = () => {
+  //   updateBook(props.match.params.id, {
+  //     issuestatus: "true",
+  //     borrower: "qwerty",
+  //     issueddate: "2020.09.27",
+  //     returndate: "2020.09.30",
+  //   });
+  // };
 
   const handleReturnUpdate = () => {
     updateBook(props.match.params.id, {
       issuestatus: "false",
+      borrower: "",
+      issueddate: "",
+      returndate: "",
     });
   };
 
