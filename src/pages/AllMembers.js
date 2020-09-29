@@ -214,6 +214,7 @@ const AllMembers = () => {
                 aria-describedby="basic-addon3"
                 name="mobNo"
                 value={values.mobNo}
+                pattern="[0-9]*"
                 // onChange={(event) => setMobNo(event.target.value)}
                 onChange={handleChange}
               />

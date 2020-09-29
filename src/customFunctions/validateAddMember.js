@@ -12,6 +12,8 @@ export default function validateAddMember(values) {
   }
   if (!values.mobNo) {
     errors.mobNo = "Mobile number is required!";
+  } else if (!/^[0-9\b]+$/.test(values.mobNo)) {
+    errors.mobNo = "Mobile number needs to be only numbers!";
   }
   if (!values.homeAddr) {
     errors.homeAddr = "Home address is required!";

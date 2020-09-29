@@ -186,7 +186,7 @@ const MemberView = (props) => {
             )}
             <InputGroup className="mb-3">
               <InputGroup.Prepend>
-                <InputGroup.Text id="basic-addon3">Username</InputGroup.Text>
+                <InputGroup.Text id="basic-addon3">Email</InputGroup.Text>
               </InputGroup.Prepend>
               <FormControl
                 id="basic-url"
