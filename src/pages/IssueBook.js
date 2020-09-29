@@ -15,6 +15,7 @@ import {
 import { DatePicker, Space } from "antd";
 import { useSelector, useDispatch } from "react-redux";
 import { Redirect, useHistory } from "react-router-dom";
+import useIsMount from "../customHooks/useIsMount";
 import {
   getAllMembersAction,
   getFilteredMembersNameAction,
@@ -23,6 +24,7 @@ import {
 import { updateBookAction } from "./BookStore/action";
 
 const IssueBook = (props) => {
+  const isMount = useIsMount();
   const [timeout, setTimeout] = useState(0);
   const [searchName, setSearchName] = useState("");
   const [searchId, setSearchId] = useState("");
@@ -42,18 +44,22 @@ const IssueBook = (props) => {
   let history = useHistory();
 
   useEffect(() => {
-    const debouncer = window.setTimeout(() => {
-      if (searchName.length > 0) {
-        filterMembersName(searchName);
-      } else if (searchId.length > 0) {
-        filterMembersId(searchId);
-      } else {
-        getAllMembers();
-      }
-    }, 1000);
-    return () => {
-      window.clearTimeout(debouncer);
-    };
+    if (!isMount) {
+      const debouncer = window.setTimeout(() => {
+        if (searchName.length > 0) {
+          filterMembersName(searchName);
+        } else if (searchId.length > 0) {
+          filterMembersId(searchId);
+        } else {
+          getAllMembers();
+        }
+      }, 1000);
+      return () => {
+        window.clearTimeout(debouncer);
+      };
+    } else {
+      getAllMembers();
+    }
   }, [searchName, searchId]);
 
   const searchByNameHandler = (event) => {
