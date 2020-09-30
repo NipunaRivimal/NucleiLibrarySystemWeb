@@ -9,6 +9,7 @@ import {
   FormControl,
   Alert,
 } from "react-bootstrap";
+import { Descriptions } from "antd";
 import { useSelector, useDispatch } from "react-redux";
 import useMemberForm from "../customHooks/useMemberForm";
 import validateAddMember from "../customFunctions/validateAddMember";
@@ -27,13 +28,6 @@ const MemberView = (props) => {
     errors,
   } = useMemberForm(submit, validateAddMember);
   const [show, setShow] = useState(false);
-  // const [userId, setUserId] = useState("");
-  // const [fName, setFName] = useState("");
-  // const [lName, setLName] = useState("");
-  // const [mobNo, setMobNo] = useState("");
-  // const [homeAddr, setHomeAddr] = useState("");
-  // const [username, setUsername] = useState("");
-  // const [password, setPassword] = useState("");
   const members = useSelector((state) => state.members.members);
   const loading = useSelector((state) => state.members.loading);
   const deleteStatus = useSelector((state) => state.members.memberDeleted);
@@ -44,13 +38,6 @@ const MemberView = (props) => {
 
   const handleClose = () => setShow(false);
   const handleShow = (member) => {
-    // setUserId(member.userid);
-    // setFName(member.firstname);
-    // setLName(member.lastname);
-    // setMobNo(member.mobilenumber);
-    // setHomeAddr(member.homeaddress);
-    // setUsername(member.username);
-    // setPassword(member.password);
     handleShowSetValues(member);
     setShow(true);
   };
@@ -68,25 +55,6 @@ const MemberView = (props) => {
 
     setShow(false);
   }
-  // const handleSubmit = () => {
-  //   updateMember(props.match.params.id, {
-  //     userid: userId,
-  //     firstname: fName,
-  //     lastname: lName,
-  //     mobilenumber: mobNo,
-  //     homeaddress: homeAddr,
-  //     username: username,
-  //     password: password,
-  //   });
-  //   setUserId("");
-  //   setFName("");
-  //   setLName("");
-  //   setMobNo("");
-  //   setHomeAddr("");
-  //   setUsername("");
-  //   setPassword("");
-  //   setShow(false);
-  // };
 
   useEffect(() => {
     getSingleMember(props.match.params.id);
@@ -97,7 +65,7 @@ const MemberView = (props) => {
   }
 
   return (
-    <div>
+    <div style={{ marginTop: "30px" }}>
       <Container>
         <Modal
           size="lg"
@@ -119,7 +87,6 @@ const MemberView = (props) => {
                 aria-describedby="basic-addon3"
                 name="userId"
                 value={values.userId}
-                // onChange={(event) => setUserId(event.target.value)}
                 onChange={handleChange}
               />
             </InputGroup>
@@ -133,7 +100,6 @@ const MemberView = (props) => {
                 aria-describedby="basic-addon3"
                 name="fName"
                 value={values.fName}
-                // onChange={(event) => setFName(event.target.value)}
                 onChange={handleChange}
               />
             </InputGroup>
@@ -147,7 +113,6 @@ const MemberView = (props) => {
                 aria-describedby="basic-addon3"
                 name="lName"
                 value={values.lName}
-                // onChange={(event) => setLName(event.target.value)}
                 onChange={handleChange}
               />
             </InputGroup>
@@ -163,27 +128,10 @@ const MemberView = (props) => {
                 aria-describedby="basic-addon3"
                 name="mobNo"
                 value={values.mobNo}
-                // onChange={(event) => setMobNo(event.target.value)}
                 onChange={handleChange}
               />
             </InputGroup>
             {errors.mobNo && <Alert variant="danger">{errors.mobNo}</Alert>}
-            <InputGroup>
-              <InputGroup.Prepend>
-                <InputGroup.Text>Home Address</InputGroup.Text>
-              </InputGroup.Prepend>
-              <FormControl
-                as="textarea"
-                aria-label="With textarea"
-                name="homeAddr"
-                value={values.homeAddr}
-                // onChange={(event) => setHomeAddr(event.target.value)}
-                onChange={handleChange}
-              />
-            </InputGroup>
-            {errors.homeAddr && (
-              <Alert variant="danger">{errors.homeAddr}</Alert>
-            )}
             <InputGroup className="mb-3">
               <InputGroup.Prepend>
                 <InputGroup.Text id="basic-addon3">Email</InputGroup.Text>
@@ -193,28 +141,25 @@ const MemberView = (props) => {
                 aria-describedby="basic-addon3"
                 name="email"
                 value={values.email}
-                // onChange={(event) => setUsername(event.target.value)}
                 onChange={handleChange}
               />
             </InputGroup>
             {errors.email && <Alert variant="danger">{errors.email}</Alert>}
-            {/* <InputGroup className="mb-3">
+            <InputGroup>
               <InputGroup.Prepend>
-                <InputGroup.Text id="basic-addon3">Password</InputGroup.Text>
+                <InputGroup.Text>Home Address</InputGroup.Text>
               </InputGroup.Prepend>
               <FormControl
-                type="password"
-                id="basic-url"
-                aria-describedby="basic-addon3"
-                name="password"
-                value={values.password}
-                // onChange={(event) => setPassword(event.target.value)}
+                as="textarea"
+                aria-label="With textarea"
+                name="homeAddr"
+                value={values.homeAddr}
                 onChange={handleChange}
               />
             </InputGroup>
-            {errors.password && (
-              <Alert variant="danger">{errors.password}</Alert>
-            )} */}
+            {errors.homeAddr && (
+              <Alert variant="danger">{errors.homeAddr}</Alert>
+            )}
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={handleClose}>
@@ -230,34 +175,73 @@ const MemberView = (props) => {
             pathname: "/allmembers",
           }}
         >
-          <Button variant="outline-secondary">Back</Button>
+          <Button variant="outline-secondary" style={{ width: "15%" }}>
+            Back
+          </Button>
         </Link>
         {loading ? (
           <Loader />
         ) : (
-          <div>
-            <h3>{props.match.params.id}</h3>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              border: "2px solid rgb(68, 62, 62)",
+              borderRadius: "10px",
+              backgroundColor: "#f2f2f2",
+              marginTop: "30px",
+            }}
+          >
             {members.map((member) => (
               <div>
-                <h3>{member.userid}</h3>
-                <h3>{member.firstname}</h3>
-                <h5>{member.lastname}</h5>
-                <h5>{member.mobilenumber}</h5>
-                <h5>{member.homeaddress}</h5>
-                <h5>{member.email}</h5>
-                <h5>{member.joindate}</h5>
-                <Button
-                  variant="outline-danger"
-                  onClick={(e) => deleteMember(props.match.params.id)}
-                >
-                  Delete
-                </Button>
-                <Button
-                  variant="outline-info"
-                  onClick={(e) => handleShow(member)}
-                >
-                  Update
-                </Button>
+                {/* <h3>{"Member ID: " + member.userid}</h3>
+                <h3>{"First Name: " + member.firstname}</h3>
+                <h5>{"Last Name: " + member.lastname}</h5>
+                <h5>{"Mobile Number: " + member.mobilenumber}</h5>
+                <h5>{"Home Address: " + member.homeaddress}</h5>
+                <h5>{"Email: " + member.email}</h5>
+                <h5>{"Joined Date: " + member.joindate}</h5> */}
+                <Descriptions title="Member Info">
+                  <Descriptions.Item label="Member ID">
+                    {member.userid}
+                  </Descriptions.Item>
+                  <Descriptions.Item label="First name">
+                    {member.firstname}
+                  </Descriptions.Item>
+                  <Descriptions.Item label="Last name">
+                    {member.lastname}
+                  </Descriptions.Item>
+                  <Descriptions.Item label="Mobile number">
+                    {member.mobilenumber}
+                  </Descriptions.Item>
+                  <Descriptions.Item label="Home address">
+                    {member.homeaddress}
+                  </Descriptions.Item>
+                  <Descriptions.Item label="Email">
+                    {member.email}
+                  </Descriptions.Item>
+                  <Descriptions.Item label="Joined date">
+                    {member.joindate}
+                  </Descriptions.Item>
+                </Descriptions>
+                <div style={{ display: "flex", justifyContent: "center" }}>
+                  <div style={{ margin: "5px" }}>
+                    <Button
+                      variant="outline-danger"
+                      onClick={(e) => deleteMember(props.match.params.id)}
+                    >
+                      Delete
+                    </Button>
+                  </div>
+                  <div style={{ margin: "5px" }}>
+                    <Button
+                      variant="outline-info"
+                      onClick={(e) => handleShow(member)}
+                    >
+                      Update
+                    </Button>
+                  </div>
+                </div>
               </div>
             ))}
           </div>

@@ -37,16 +37,6 @@ const AllBooks = () => {
     errors,
   } = useBookForm(submit, validateAddBook);
   const [show, setShow] = useState(false);
-  // const [bookID, setBookId] = useState("");
-  // const [name, setName] = useState("");
-  // const [author, setAuthor] = useState("");
-  // const [description, setDescription] = useState("");
-  // const [values, setValues] = useState({
-  //   bookID: "",
-  //   name: "",
-  //   author: "",
-  //   description: "",
-  // });
   const [searchName, setSearchName] = useState("");
   const [searchAuthor, setSearchAuthor] = useState("");
   const books = useSelector((state) => state.books.books);
@@ -57,10 +47,6 @@ const AllBooks = () => {
   const filterBooks = (name) => dispatch(getFilteredBooksNameAction(name));
   const filterBooksAuthor = (author) =>
     dispatch(getFilteredBooksAuthorAction(author));
-
-  // useEffect(() => {
-  //   getAllBooks();
-  // }, []);
 
   useEffect(() => {
     if (!isMount) {
@@ -84,29 +70,6 @@ const AllBooks = () => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  // const handleSubmit = () => {
-  //   var today = new Date();
-  //   var dd = String(today.getDate()).padStart(2, "0");
-  //   var mm = String(today.getMonth() + 1).padStart(2, "0");
-  //   var yyyy = today.getFullYear();
-
-  //   today = mm + "." + dd + "." + yyyy;
-  //   addBook({
-  //     bookcode: bookID,
-  //     name: name,
-  //     author: author,
-  //     description: description,
-  //     addeddate: today,
-  //     issuestatus: "false",
-  //   });
-
-  //   setBookId("");
-  //   setName("");
-  //   setAuthor("");
-  //   setDescription("");
-  //   setShow(false);
-  // };
-
   function submit() {
     console.log("submit");
     var today = new Date();
@@ -127,13 +90,6 @@ const AllBooks = () => {
     setShow(false);
     handleChangeDefault();
   }
-
-  // const handleChange = (event) => {
-  //   setValues({
-  //     ...values,
-  //     [event.target.name]: event.target.value,
-  //   });
-  // };
 
   const searchByNameHandler = (event) => {
     setSearchName(event.target.value);
@@ -168,7 +124,6 @@ const AllBooks = () => {
                 aria-describedby="basic-addon3"
                 name="bookID"
                 value={values.bookID}
-                // onChange={(event) => setBookId(event.target.value)}
                 onChange={handleChange}
               />
             </InputGroup>
@@ -182,7 +137,6 @@ const AllBooks = () => {
                 aria-describedby="basic-addon3"
                 name="name"
                 value={values.name}
-                // onChange={(event) => setName(event.target.value)}
                 onChange={handleChange}
               />
             </InputGroup>
@@ -196,7 +150,6 @@ const AllBooks = () => {
                 aria-describedby="basic-addon3"
                 name="author"
                 value={values.author}
-                // onChange={(event) => setAuthor(event.target.value)}
                 onChange={handleChange}
               />
             </InputGroup>
@@ -210,7 +163,6 @@ const AllBooks = () => {
                 aria-label="With textarea"
                 name="description"
                 value={values.description}
-                // onChange={(event) => setDescription(event.target.value)}
                 onChange={handleChange}
               />
             </InputGroup>
@@ -227,74 +179,62 @@ const AllBooks = () => {
             </Button>
           </Modal.Footer>
         </Modal>
-        {books.length === 0 ? (
-          <>
-            <Empty />
-            <Button
-              variant="outline-dark"
-              style={{ width: "15%" }}
-              onClick={handleShow}
-            >
-              Add new book
-            </Button>
-          </>
-        ) : (
-          <Container>
-            <Row>
-              <Col lg={4}>
-                <InputGroup className="mb-3">
-                  <FormControl
-                    placeholder="Search by name..."
-                    aria-label="Amount (to the nearest dollar)"
-                    value={searchName}
-                    onChange={(event) => {
-                      searchByNameHandler(event);
-                    }}
-                  />
-                </InputGroup>
-              </Col>
-              <Col lg={4}>
-                <InputGroup className="mb-3">
-                  <FormControl
-                    placeholder="Search by author..."
-                    aria-label="Amount (to the nearest dollar)"
-                    value={searchAuthor}
-                    onChange={(event) => {
-                      searchByAuthorHandler(event);
-                    }}
-                  />
-                </InputGroup>
-              </Col>
-              <Col lg={2}>
-                <Button variant="outline-success" style={{ width: "100%" }}>
-                  Search
-                </Button>
-              </Col>
-              <Col lg={2}>
-                <Button
-                  variant="outline-dark"
-                  style={{ width: "100%" }}
-                  onClick={handleShow}
-                >
-                  Add new book
-                </Button>
-              </Col>
-            </Row>
-            {loading ? (
-              <Loader />
-            ) : (
-              <Row>
-                {books.map((book) => (
-                  <Col lg={3} md={4} xs={12}>
-                    <div className="bookCard">
-                      <BookCard book={book} from="allbooks" />
-                    </div>
-                  </Col>
-                ))}
-              </Row>
-            )}
-          </Container>
-        )}
+        <Container>
+          <Row>
+            <Col lg={4}>
+              <InputGroup className="mb-3">
+                <FormControl
+                  placeholder="Search by name..."
+                  aria-label="Amount (to the nearest dollar)"
+                  value={searchName}
+                  onChange={(event) => {
+                    searchByNameHandler(event);
+                  }}
+                />
+              </InputGroup>
+            </Col>
+            <Col lg={4}>
+              <InputGroup className="mb-3">
+                <FormControl
+                  placeholder="Search by author..."
+                  aria-label="Amount (to the nearest dollar)"
+                  value={searchAuthor}
+                  onChange={(event) => {
+                    searchByAuthorHandler(event);
+                  }}
+                />
+              </InputGroup>
+            </Col>
+            <Col lg={4}>
+              <Button
+                variant="outline-dark"
+                style={{ width: "100%" }}
+                onClick={handleShow}
+              >
+                Add new book
+              </Button>
+            </Col>
+          </Row>
+          {loading ? (
+            <Loader />
+          ) : (
+            <div>
+              {books.length === 0 ? (
+                <Empty />
+              ) : (
+                <Row>
+                  {books.map((book) => (
+                    <Col lg={3} md={4} xs={12}>
+                      <div className="bookCard">
+                        <BookCard book={book} from="allbooks" />
+                      </div>
+                    </Col>
+                  ))}
+                </Row>
+              )}
+            </div>
+          )}
+        </Container>
       </div>
     </>
   );

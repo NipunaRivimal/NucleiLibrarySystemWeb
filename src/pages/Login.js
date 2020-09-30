@@ -43,48 +43,56 @@ const Login = () => {
   }
 
   return (
-    <div className="page-content">
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        marginTop: "100px",
+      }}
+    >
       <div>
-        <InputGroup className="mb-3">
-          <InputGroup.Prepend>
-            <InputGroup.Text id="basic-addon1">Email</InputGroup.Text>
-          </InputGroup.Prepend>
-          <FormControl
-            placeholder="Username"
-            aria-label="Username"
-            aria-describedby="basic-addon1"
-            name="email"
-            value={values.email}
-            // onChange={(event) => setEmail(event.target.value)}
-            onChange={handleChange}
-          />
-        </InputGroup>
-        {errors.email && <Alert variant="danger">{errors.email}</Alert>}
-        <InputGroup className="mb-3">
-          <InputGroup.Prepend>
-            <InputGroup.Text id="basic-addon1">Password</InputGroup.Text>
-          </InputGroup.Prepend>
-          <FormControl
-            placeholder="Username"
-            aria-label="Username"
-            aria-describedby="basic-addon1"
-            name="password"
-            value={values.password}
-            // onChange={(event) => setPassword(event.target.value)}
-            onChange={handleChange}
-          />
-        </InputGroup>
-        {errors.password && <Alert variant="danger">{errors.password}</Alert>}
-        {!loginStatus && loginErrors && (
-          <Alert variant="danger">{loginErrors}</Alert>
-        )}
-        <Button
-          variant="outline-success"
-          style={{ width: "100%" }}
-          onClick={handleSubmit}
-        >
-          Login
-        </Button>
+        <form onSubmit={handleSubmit}>
+          <InputGroup className="mb-3">
+            <InputGroup.Prepend>
+              <InputGroup.Text id="basic-addon1">Email</InputGroup.Text>
+            </InputGroup.Prepend>
+            <FormControl
+              placeholder="Username"
+              aria-label="Username"
+              aria-describedby="basic-addon1"
+              name="email"
+              value={values.email}
+              onChange={handleChange}
+            />
+          </InputGroup>
+          {errors.email && <Alert variant="danger">{errors.email}</Alert>}
+          <InputGroup className="mb-3">
+            <InputGroup.Prepend>
+              <InputGroup.Text id="basic-addon1">Password</InputGroup.Text>
+            </InputGroup.Prepend>
+            <FormControl
+              placeholder="Username"
+              aria-label="Username"
+              aria-describedby="basic-addon1"
+              type="password"
+              name="password"
+              value={values.password}
+              onChange={handleChange}
+            />
+          </InputGroup>
+          {errors.password && <Alert variant="danger">{errors.password}</Alert>}
+          {!loginStatus && loginErrors && (
+            <Alert variant="danger">{loginErrors}</Alert>
+          )}
+          <Button
+            variant="outline-success"
+            style={{ width: "100%" }}
+            onClick={handleSubmit}
+          >
+            Login
+          </Button>
+        </form>
       </div>
     </div>
   );

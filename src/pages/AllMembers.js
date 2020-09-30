@@ -37,13 +37,6 @@ const AllMembers = () => {
   } = useMemberForm(submit, validateAddMember);
   const [show, setShow] = useState(false);
   const [timeout, setTimeout] = useState(0);
-  //   const [userId, setUserId] = useState("");
-  //   const [fName, setFName] = useState("");
-  //   const [lName, setLName] = useState("");
-  //   const [mobNo, setMobNo] = useState("");
-  //   const [homeAddr, setHomeAddr] = useState("");
-  //   const [username, setUsername] = useState("");
-  //   const [password, setPassword] = useState("");
   const [joinDate, setJoinDate] = useState("");
   const [searchName, setSearchName] = useState("");
   const [searchId, setSearchId] = useState("");
@@ -83,42 +76,6 @@ const AllMembers = () => {
     setShow(false);
     handleChangeDefault();
   }
-  //   const handleSubmit = () => {
-  //     var today = new Date();
-  //     var dd = String(today.getDate()).padStart(2, "0");
-  //     var mm = String(today.getMonth() + 1).padStart(2, "0");
-  //     var yyyy = today.getFullYear();
-
-  //     today = mm + "." + dd + "." + yyyy;
-
-  //     addMember({
-  //       userid: userId,
-  //       firstname: fName,
-  //       lastname: lName,
-  //       mobilenumber: mobNo,
-  //       homeaddress: homeAddr,
-  //       username: username,
-  //       password: password,
-  //       joindate: today,
-  //     });
-
-  //     setUserId("");
-  //     setFName("");
-  //     setLName("");
-  //     setMobNo("");
-  //     setHomeAddr("");
-  //     setUsername("");
-  //     setPassword("");
-  //     setShow(false);
-  //   };
-
-  //   const handleSearch = () => {
-  //     filterMembers(searchName);
-  //   };
-
-  //   useEffect(() => {
-  //     getAllMembers();
-  //   }, []);
 
   useEffect(() => {
     if (!isMount) {
@@ -173,7 +130,6 @@ const AllMembers = () => {
                 aria-describedby="basic-addon3"
                 name="userId"
                 value={values.userId}
-                // onChange={(event) => setUserId(event.target.value)}
                 onChange={handleChange}
               />
             </InputGroup>
@@ -187,7 +143,6 @@ const AllMembers = () => {
                 aria-describedby="basic-addon3"
                 name="fName"
                 value={values.fName}
-                // onChange={(event) => setFName(event.target.value)}
                 onChange={handleChange}
               />
             </InputGroup>
@@ -201,7 +156,6 @@ const AllMembers = () => {
                 aria-describedby="basic-addon3"
                 name="lName"
                 value={values.lName}
-                // onChange={(event) => setLName(event.target.value)}
                 onChange={handleChange}
               />
             </InputGroup>
@@ -218,12 +172,11 @@ const AllMembers = () => {
                 name="mobNo"
                 value={values.mobNo}
                 pattern="[0-9]*"
-                // onChange={(event) => setMobNo(event.target.value)}
                 onChange={handleChange}
               />
             </InputGroup>
             {errors.mobNo && <Alert variant="danger">{errors.mobNo}</Alert>}
-            <InputGroup>
+            <InputGroup style={{ marginBottom: "20px" }}>
               <InputGroup.Prepend>
                 <InputGroup.Text>Home Address</InputGroup.Text>
               </InputGroup.Prepend>
@@ -232,7 +185,6 @@ const AllMembers = () => {
                 aria-label="With textarea"
                 name="homeAddr"
                 value={values.homeAddr}
-                // onChange={(event) => setHomeAddr(event.target.value)}
                 onChange={handleChange}
               />
             </InputGroup>
@@ -248,7 +200,6 @@ const AllMembers = () => {
                 aria-describedby="basic-addon3"
                 name="email"
                 value={values.email}
-                // onChange={(event) => setUsername(event.target.value)}
                 onChange={handleChange}
               />
             </InputGroup>
@@ -263,7 +214,6 @@ const AllMembers = () => {
                 aria-describedby="basic-addon3"
                 name="password"
                 value={values.password}
-                // onChange={(event) => setPassword(event.target.value)}
                 onChange={handleChange}
               />
             </InputGroup>
@@ -280,100 +230,84 @@ const AllMembers = () => {
             </Button>
           </Modal.Footer>
         </Modal>
-        {members.length === 0 ? (
-          <>
-            <Empty />
-            <Button
-              variant="outline-dark"
-              style={{ width: "15%" }}
-              onClick={handleShow}
-            >
-              Add new member
-            </Button>
-          </>
-        ) : (
-          <Container>
-            <Row>
-              <Col lg={4}>
-                <InputGroup className="mb-3">
-                  <FormControl
-                    placeholder="Search by user ID..."
-                    aria-label="Amount (to the nearest dollar)"
-                    value={searchId}
-                    onChange={(e) => searchByIdHandler(e)}
-                  />
-                </InputGroup>
-              </Col>
-              <Col lg={4}>
-                <InputGroup className="mb-3">
-                  <FormControl
-                    placeholder="Search by first name..."
-                    aria-label="Amount (to the nearest dollar)"
-                    value={searchName}
-                    onChange={(e) => searchByNameHandler(e)}
-                  />
-                </InputGroup>
-              </Col>
-              <Col lg={2}>
-                <Button
-                  variant="outline-success"
-                  style={{ width: "100%" }}
-                  //   onClick={handleSearch}
-                >
-                  Search
-                </Button>
-              </Col>
-              <Col lg={2}>
-                <Button
-                  variant="outline-dark"
-                  style={{ width: "100%" }}
-                  onClick={handleShow}
-                >
-                  Add new member
-                </Button>
-              </Col>
-            </Row>
-            {loading ? (
-              <Loader />
-            ) : (
-              <Table bordered hover>
-                <thead>
-                  <tr>
-                    <th>User ID</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Mobile No</th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {members.map((member) => (
+        <Container>
+          <Row>
+            <Col lg={4}>
+              <InputGroup className="mb-3">
+                <FormControl
+                  placeholder="Search by user ID..."
+                  aria-label="Amount (to the nearest dollar)"
+                  value={searchId}
+                  onChange={(e) => searchByIdHandler(e)}
+                />
+              </InputGroup>
+            </Col>
+            <Col lg={4}>
+              <InputGroup className="mb-3">
+                <FormControl
+                  placeholder="Search by first name..."
+                  aria-label="Amount (to the nearest dollar)"
+                  value={searchName}
+                  onChange={(e) => searchByNameHandler(e)}
+                />
+              </InputGroup>
+            </Col>
+            <Col lg={4}>
+              <Button
+                variant="outline-dark"
+                style={{ width: "100%" }}
+                onClick={handleShow}
+              >
+                Add new member
+              </Button>
+            </Col>
+          </Row>
+          {loading ? (
+            <Loader />
+          ) : (
+            <div>
+              {members.length === 0 ? (
+                <Empty />
+              ) : (
+                <Table bordered hover>
+                  <thead>
                     <tr>
-                      <td>{member.userid}</td>
-                      <td>{member.firstname}</td>
-                      <td>{member.lastname}</td>
-                      <td>{member.mobilenumber}</td>
-                      <td>
-                        <Link
-                          to={{
-                            pathname: `/viewmember/${member._id}`,
-                          }}
-                        >
-                          <Button
-                            variant="outline-dark"
-                            style={{ width: "100%" }}
-                          >
-                            View
-                          </Button>
-                        </Link>
-                      </td>
+                      <th>User ID</th>
+                      <th>First Name</th>
+                      <th>Last Name</th>
+                      <th>Mobile No</th>
+                      <th></th>
                     </tr>
-                  ))}
-                </tbody>
-              </Table>
-            )}
-          </Container>
-        )}
+                  </thead>
+                  <tbody>
+                    {members.map((member) => (
+                      <tr>
+                        <td>{member.userid}</td>
+                        <td>{member.firstname}</td>
+                        <td>{member.lastname}</td>
+                        <td>{member.mobilenumber}</td>
+                        <td>
+                          <Link
+                            to={{
+                              pathname: `/viewmember/${member._id}`,
+                            }}
+                          >
+                            <Button
+                              variant="outline-dark"
+                              style={{ width: "100%" }}
+                            >
+                              View
+                            </Button>
+                          </Link>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </Table>
+              )}
+            </div>
+          )}
+        </Container>
       </div>
     </>
   );

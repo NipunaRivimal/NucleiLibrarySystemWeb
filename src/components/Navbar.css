@@ -1,8 +1,23 @@
 .header {
+  background-color: #dbd9d9;
+  min-height: 50px;
+}
+
+.item {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: #dbd9d9;
   height: 50px;
+}
+
+.logout-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: yellow;
+  margin: 20px;
+}
+
+@media screen and (max-width: 480px) {
 }

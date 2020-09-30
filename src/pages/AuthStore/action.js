@@ -17,6 +17,7 @@ export const loginAction = (userCredintials) => {
               login: true,
               userid: respose.data.data.userid,
               usertype: respose.data.data.usertype,
+              firstname: respose.data.data.firstname,
               token: respose.data.token,
             })
           );

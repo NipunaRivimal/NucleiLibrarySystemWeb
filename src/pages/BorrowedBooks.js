@@ -4,9 +4,10 @@ import Loader from "../components/Loader";
 import BookCard from "../components/BookCard";
 import "./BookPage.css";
 import { Card, Button, Row, Col, Container } from "react-bootstrap";
-import { Empty } from "antd";
+import { Empty, Typography } from "antd";
 import { useSelector, useDispatch } from "react-redux";
 import { getSelectedBooksByUserAction } from "./BookStore/action";
+const { Title } = Typography;
 
 const BorrowedBooks = (props) => {
   const userlogin = useSelector((state) => state.auth.loginStatus);
@@ -32,15 +33,20 @@ const BorrowedBooks = (props) => {
           {loading ? (
             <Loader />
           ) : (
-            <Row>
-              {books.map((book) => (
-                <Col lg={3} md={4} xs={12}>
-                  <div className="bookCard">
-                    <BookCard book={book} from="borrowedbooks" />
-                  </div>
-                </Col>
-              ))}
-            </Row>
+            <div>
+              <Title level={2} style={{ textAlign: "center" }}>
+                Borrowed Books
+              </Title>
+              <Row>
+                {books.map((book) => (
+                  <Col lg={3} md={4} xs={12}>
+                    <div className="bookCard">
+                      <BookCard book={book} from="borrowedbooks" />
+                    </div>
+                  </Col>
+                ))}
+              </Row>
+            </div>
           )}
         </Container>
       )}

@@ -12,7 +12,7 @@ import {
   Modal,
   Alert,
 } from "react-bootstrap";
-import { DatePicker, Space } from "antd";
+import { DatePicker, Space, Typography } from "antd";
 import { useSelector, useDispatch } from "react-redux";
 import { Redirect, useHistory } from "react-router-dom";
 import useIsMount from "../customHooks/useIsMount";
@@ -22,6 +22,8 @@ import {
   getFilteredMembersIdAction,
 } from "./UserStore/action";
 import { updateBookAction } from "./BookStore/action";
+
+const { Text } = Typography;
 
 const IssueBook = (props) => {
   const isMount = useIsMount();
@@ -95,22 +97,29 @@ const IssueBook = (props) => {
   return (
     <div className="page-content">
       <Container>
-        <Button variant="outline-secondary" onClick={(e) => history.goBack()}>
+        <Button
+          variant="outline-secondary"
+          onClick={(e) => history.goBack()}
+          style={{ width: "15%" }}
+        >
           Back
         </Button>
         <div className="issue-form">
-          <h4>Member</h4>
-          <h4>{name}</h4>
-          <h4>Issue Date</h4>
+          <Text>Member</Text>
+          <Text type="secondary">{name}</Text>
+          <div style={{ marginTop: "20px" }}>
+            <Text>Issue Date</Text>
+          </div>
           <DatePicker style={{ width: "50%" }} onChange={onChangeI} />
-          <h4>Return Date</h4>
-          <DatePicker
-            style={{ width: "50%", marginTop: "20px" }}
-            onChange={onChangeD}
-          />
+
+          <div style={{ marginTop: "20px" }}>
+            <Text>Return Date</Text>
+          </div>
+          <DatePicker style={{ width: "50%" }} onChange={onChangeD} />
+
           <Button
             variant="outline-success"
-            style={{ width: "50%" }}
+            style={{ width: "50%", marginTop: "20px" }}
             onClick={handleIssueUpdate}
             disabled={
               id.length > 0 && iDate.length > 0 && dDate.length > 0
