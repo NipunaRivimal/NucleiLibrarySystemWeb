@@ -1,16 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Card } from "antd";
 import "./BookCard.css";
 
 const { Meta } = Card;
 
-const BookCard = ({ book, from }) => {
+const BookCard = ({ book, from, path }) => {
   return (
     <div className="content">
       <Link
         to={{
-          pathname: `/viewbook/${book._id}/${from}`,
+          pathname: `/${path}/${book._id}/${from}`,
         }}
       >
         <Card

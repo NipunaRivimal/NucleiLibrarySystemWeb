@@ -226,7 +226,7 @@ const AllBooks = () => {
                   {books.map((book) => (
                     <Col lg={3} md={4} xs={12}>
                       <div className="bookCard">
-                        <BookCard book={book} from="allbooks" />
+                        <BookCard book={book} from="allbooks" path="viewbook" />
                       </div>
                     </Col>
                   ))}

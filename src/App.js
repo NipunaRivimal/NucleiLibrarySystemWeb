@@ -50,6 +50,12 @@ function App() {
             static
             component={BookView}
           />
+          <MemberRoute
+            path="/memberviewbook/:id/:pagecategory"
+            exact
+            static
+            component={BookView}
+          />
           <AdminRoute path="/allmembers" exact static component={AllMembers} />
           <AdminRoute
             path="/viewmember/:id"
