@@ -13,6 +13,7 @@ import {
   Modal,
   Alert,
 } from "react-bootstrap";
+import { Empty } from "antd";
 import { useSelector, useDispatch } from "react-redux";
 import useMemberForm from "../customHooks/useMemberForm";
 import useIsMount from "../customHooks/useIsMount";
@@ -152,216 +153,227 @@ const AllMembers = () => {
     <>
       <NavBarSub />
       <div className="page-content">
-        <Container>
-          <Modal
-            size="lg"
-            show={show}
-            onHide={handleClose}
-            backdrop="static"
-            keyboard={false}
-          >
-            <Modal.Header closeButton>
-              <Modal.Title>Add New Member</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              <InputGroup className="mb-3">
-                <InputGroup.Prepend>
-                  <InputGroup.Text id="basic-addon3">User ID</InputGroup.Text>
-                </InputGroup.Prepend>
-                <FormControl
-                  id="basic-url"
-                  aria-describedby="basic-addon3"
-                  name="userId"
-                  value={values.userId}
-                  // onChange={(event) => setUserId(event.target.value)}
-                  onChange={handleChange}
-                />
-              </InputGroup>
-              {errors.userId && <Alert variant="danger">{errors.userId}</Alert>}
-              <InputGroup className="mb-3">
-                <InputGroup.Prepend>
-                  <InputGroup.Text id="basic-addon3">
-                    First Name
-                  </InputGroup.Text>
-                </InputGroup.Prepend>
-                <FormControl
-                  id="basic-url"
-                  aria-describedby="basic-addon3"
-                  name="fName"
-                  value={values.fName}
-                  // onChange={(event) => setFName(event.target.value)}
-                  onChange={handleChange}
-                />
-              </InputGroup>
-              {errors.fName && <Alert variant="danger">{errors.fName}</Alert>}
-              <InputGroup className="mb-3">
-                <InputGroup.Prepend>
-                  <InputGroup.Text id="basic-addon3">Last Name</InputGroup.Text>
-                </InputGroup.Prepend>
-                <FormControl
-                  id="basic-url"
-                  aria-describedby="basic-addon3"
-                  name="lName"
-                  value={values.lName}
-                  // onChange={(event) => setLName(event.target.value)}
-                  onChange={handleChange}
-                />
-              </InputGroup>
-              {errors.lName && <Alert variant="danger">{errors.lName}</Alert>}
-              <InputGroup className="mb-3">
-                <InputGroup.Prepend>
-                  <InputGroup.Text id="basic-addon3">
-                    Mobile Number
-                  </InputGroup.Text>
-                </InputGroup.Prepend>
-                <FormControl
-                  id="basic-url"
-                  aria-describedby="basic-addon3"
-                  name="mobNo"
-                  value={values.mobNo}
-                  pattern="[0-9]*"
-                  // onChange={(event) => setMobNo(event.target.value)}
-                  onChange={handleChange}
-                />
-              </InputGroup>
-              {errors.mobNo && <Alert variant="danger">{errors.mobNo}</Alert>}
-              <InputGroup>
-                <InputGroup.Prepend>
-                  <InputGroup.Text>Home Address</InputGroup.Text>
-                </InputGroup.Prepend>
-                <FormControl
-                  as="textarea"
-                  aria-label="With textarea"
-                  name="homeAddr"
-                  value={values.homeAddr}
-                  // onChange={(event) => setHomeAddr(event.target.value)}
-                  onChange={handleChange}
-                />
-              </InputGroup>
-              {errors.homeAddr && (
-                <Alert variant="danger">{errors.homeAddr}</Alert>
-              )}
-              <InputGroup className="mb-3">
-                <InputGroup.Prepend>
-                  <InputGroup.Text id="basic-addon3">Email</InputGroup.Text>
-                </InputGroup.Prepend>
-                <FormControl
-                  id="basic-url"
-                  aria-describedby="basic-addon3"
-                  name="email"
-                  value={values.email}
-                  // onChange={(event) => setUsername(event.target.value)}
-                  onChange={handleChange}
-                />
-              </InputGroup>
-              {errors.email && <Alert variant="danger">{errors.email}</Alert>}
-              <InputGroup className="mb-3">
-                <InputGroup.Prepend>
-                  <InputGroup.Text id="basic-addon3">Password</InputGroup.Text>
-                </InputGroup.Prepend>
-                <FormControl
-                  type="password"
-                  id="basic-url"
-                  aria-describedby="basic-addon3"
-                  name="password"
-                  value={values.password}
-                  // onChange={(event) => setPassword(event.target.value)}
-                  onChange={handleChange}
-                />
-              </InputGroup>
-              {errors.password && (
-                <Alert variant="danger">{errors.password}</Alert>
-              )}
-            </Modal.Body>
-            <Modal.Footer>
-              <Button variant="secondary" onClick={handleClose}>
-                Close
-              </Button>
-              <Button variant="primary" onClick={handleSubmit}>
-                Add
-              </Button>
-            </Modal.Footer>
-          </Modal>
-          <Row>
-            <Col lg={4}>
-              <InputGroup className="mb-3">
-                <FormControl
-                  placeholder="Search by user ID..."
-                  aria-label="Amount (to the nearest dollar)"
-                  value={searchId}
-                  onChange={(e) => searchByIdHandler(e)}
-                />
-              </InputGroup>
-            </Col>
-            <Col lg={4}>
-              <InputGroup className="mb-3">
-                <FormControl
-                  placeholder="Search by first name..."
-                  aria-label="Amount (to the nearest dollar)"
-                  value={searchName}
-                  onChange={(e) => searchByNameHandler(e)}
-                />
-              </InputGroup>
-            </Col>
-            <Col lg={2}>
-              <Button
-                variant="outline-success"
-                style={{ width: "100%" }}
-                //   onClick={handleSearch}
-              >
-                Search
-              </Button>
-            </Col>
-            <Col lg={2}>
-              <Button
-                variant="outline-dark"
-                style={{ width: "100%" }}
-                onClick={handleShow}
-              >
-                Add new member
-              </Button>
-            </Col>
-          </Row>
-          {loading ? (
-            <Loader />
-          ) : (
-            <Table bordered hover>
-              <thead>
-                <tr>
-                  <th>User ID</th>
-                  <th>First Name</th>
-                  <th>Last Name</th>
-                  <th>Mobile No</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                {members.map((member) => (
+        <Modal
+          size="lg"
+          show={show}
+          onHide={handleClose}
+          backdrop="static"
+          keyboard={false}
+        >
+          <Modal.Header closeButton>
+            <Modal.Title>Add New Member</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <InputGroup className="mb-3">
+              <InputGroup.Prepend>
+                <InputGroup.Text id="basic-addon3">User ID</InputGroup.Text>
+              </InputGroup.Prepend>
+              <FormControl
+                id="basic-url"
+                aria-describedby="basic-addon3"
+                name="userId"
+                value={values.userId}
+                // onChange={(event) => setUserId(event.target.value)}
+                onChange={handleChange}
+              />
+            </InputGroup>
+            {errors.userId && <Alert variant="danger">{errors.userId}</Alert>}
+            <InputGroup className="mb-3">
+              <InputGroup.Prepend>
+                <InputGroup.Text id="basic-addon3">First Name</InputGroup.Text>
+              </InputGroup.Prepend>
+              <FormControl
+                id="basic-url"
+                aria-describedby="basic-addon3"
+                name="fName"
+                value={values.fName}
+                // onChange={(event) => setFName(event.target.value)}
+                onChange={handleChange}
+              />
+            </InputGroup>
+            {errors.fName && <Alert variant="danger">{errors.fName}</Alert>}
+            <InputGroup className="mb-3">
+              <InputGroup.Prepend>
+                <InputGroup.Text id="basic-addon3">Last Name</InputGroup.Text>
+              </InputGroup.Prepend>
+              <FormControl
+                id="basic-url"
+                aria-describedby="basic-addon3"
+                name="lName"
+                value={values.lName}
+                // onChange={(event) => setLName(event.target.value)}
+                onChange={handleChange}
+              />
+            </InputGroup>
+            {errors.lName && <Alert variant="danger">{errors.lName}</Alert>}
+            <InputGroup className="mb-3">
+              <InputGroup.Prepend>
+                <InputGroup.Text id="basic-addon3">
+                  Mobile Number
+                </InputGroup.Text>
+              </InputGroup.Prepend>
+              <FormControl
+                id="basic-url"
+                aria-describedby="basic-addon3"
+                name="mobNo"
+                value={values.mobNo}
+                pattern="[0-9]*"
+                // onChange={(event) => setMobNo(event.target.value)}
+                onChange={handleChange}
+              />
+            </InputGroup>
+            {errors.mobNo && <Alert variant="danger">{errors.mobNo}</Alert>}
+            <InputGroup>
+              <InputGroup.Prepend>
+                <InputGroup.Text>Home Address</InputGroup.Text>
+              </InputGroup.Prepend>
+              <FormControl
+                as="textarea"
+                aria-label="With textarea"
+                name="homeAddr"
+                value={values.homeAddr}
+                // onChange={(event) => setHomeAddr(event.target.value)}
+                onChange={handleChange}
+              />
+            </InputGroup>
+            {errors.homeAddr && (
+              <Alert variant="danger">{errors.homeAddr}</Alert>
+            )}
+            <InputGroup className="mb-3">
+              <InputGroup.Prepend>
+                <InputGroup.Text id="basic-addon3">Email</InputGroup.Text>
+              </InputGroup.Prepend>
+              <FormControl
+                id="basic-url"
+                aria-describedby="basic-addon3"
+                name="email"
+                value={values.email}
+                // onChange={(event) => setUsername(event.target.value)}
+                onChange={handleChange}
+              />
+            </InputGroup>
+            {errors.email && <Alert variant="danger">{errors.email}</Alert>}
+            <InputGroup className="mb-3">
+              <InputGroup.Prepend>
+                <InputGroup.Text id="basic-addon3">Password</InputGroup.Text>
+              </InputGroup.Prepend>
+              <FormControl
+                type="password"
+                id="basic-url"
+                aria-describedby="basic-addon3"
+                name="password"
+                value={values.password}
+                // onChange={(event) => setPassword(event.target.value)}
+                onChange={handleChange}
+              />
+            </InputGroup>
+            {errors.password && (
+              <Alert variant="danger">{errors.password}</Alert>
+            )}
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleClose}>
+              Close
+            </Button>
+            <Button variant="primary" onClick={handleSubmit}>
+              Add
+            </Button>
+          </Modal.Footer>
+        </Modal>
+        {members.length === 0 ? (
+          <>
+            <Empty />
+            <Button
+              variant="outline-dark"
+              style={{ width: "15%" }}
+              onClick={handleShow}
+            >
+              Add new member
+            </Button>
+          </>
+        ) : (
+          <Container>
+            <Row>
+              <Col lg={4}>
+                <InputGroup className="mb-3">
+                  <FormControl
+                    placeholder="Search by user ID..."
+                    aria-label="Amount (to the nearest dollar)"
+                    value={searchId}
+                    onChange={(e) => searchByIdHandler(e)}
+                  />
+                </InputGroup>
+              </Col>
+              <Col lg={4}>
+                <InputGroup className="mb-3">
+                  <FormControl
+                    placeholder="Search by first name..."
+                    aria-label="Amount (to the nearest dollar)"
+                    value={searchName}
+                    onChange={(e) => searchByNameHandler(e)}
+                  />
+                </InputGroup>
+              </Col>
+              <Col lg={2}>
+                <Button
+                  variant="outline-success"
+                  style={{ width: "100%" }}
+                  //   onClick={handleSearch}
+                >
+                  Search
+                </Button>
+              </Col>
+              <Col lg={2}>
+                <Button
+                  variant="outline-dark"
+                  style={{ width: "100%" }}
+                  onClick={handleShow}
+                >
+                  Add new member
+                </Button>
+              </Col>
+            </Row>
+            {loading ? (
+              <Loader />
+            ) : (
+              <Table bordered hover>
+                <thead>
                   <tr>
-                    <td>{member.userid}</td>
-                    <td>{member.firstname}</td>
-                    <td>{member.lastname}</td>
-                    <td>{member.mobilenumber}</td>
-                    <td>
-                      <Link
-                        to={{
-                          pathname: `/viewmember/${member._id}`,
-                        }}
-                      >
-                        <Button
-                          variant="outline-dark"
-                          style={{ width: "100%" }}
-                        >
-                          View
-                        </Button>
-                      </Link>
-                    </td>
+                    <th>User ID</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Mobile No</th>
+                    <th></th>
                   </tr>
-                ))}
-              </tbody>
-            </Table>
-          )}
-        </Container>
+                </thead>
+                <tbody>
+                  {members.map((member) => (
+                    <tr>
+                      <td>{member.userid}</td>
+                      <td>{member.firstname}</td>
+                      <td>{member.lastname}</td>
+                      <td>{member.mobilenumber}</td>
+                      <td>
+                        <Link
+                          to={{
+                            pathname: `/viewmember/${member._id}`,
+                          }}
+                        >
+                          <Button
+                            variant="outline-dark"
+                            style={{ width: "100%" }}
+                          >
+                            View
+                          </Button>
+                        </Link>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </Table>
+            )}
+          </Container>
+        )}
       </div>
     </>
   );

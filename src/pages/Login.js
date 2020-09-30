@@ -75,7 +75,7 @@ const Login = () => {
           />
         </InputGroup>
         {errors.password && <Alert variant="danger">{errors.password}</Alert>}
-        {loginStatus && loginErrors && loginStatus == "fail" && (
+        {!loginStatus && loginErrors && (
           <Alert variant="danger">{loginErrors}</Alert>
         )}
         <Button

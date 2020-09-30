@@ -5,6 +5,7 @@ import NavBarSub from "../components/NavbarSub";
 import { Link } from "react-router-dom";
 import "./BookPage.css";
 import { Card, Button, Row, Col, Container } from "react-bootstrap";
+import { Empty } from "antd";
 import { useSelector, useDispatch } from "react-redux";
 import { getSelectedBooksAction } from "./BookStore/action";
 
@@ -23,21 +24,25 @@ const AvailableBooks = () => {
     <>
       <NavBarSub />
       <div className="page-content">
-        <Container>
-          {loading ? (
-            <Loader />
-          ) : (
-            <Row>
-              {books.map((book) => (
-                <Col lg={3} md={4} xs={12}>
-                  <div className="bookCard">
-                    <BookCard book={book} from="availablebooks" />
-                  </div>
-                </Col>
-              ))}
-            </Row>
-          )}
-        </Container>
+        {books.length === 0 ? (
+          <Empty />
+        ) : (
+          <Container>
+            {loading ? (
+              <Loader />
+            ) : (
+              <Row>
+                {books.map((book) => (
+                  <Col lg={3} md={4} xs={12}>
+                    <div className="bookCard">
+                      <BookCard book={book} from="availablebooks" />
+                    </div>
+                  </Col>
+                ))}
+              </Row>
+            )}
+          </Container>
+        )}
       </div>
     </>
   );

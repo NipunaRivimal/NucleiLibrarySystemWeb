@@ -34,7 +34,13 @@ const Navbar = () => {
     <div>
       <div className="header">
         <h3>Luck's Library</h3>
-        {login ? <button onClick={onLogout}>Log out</button> : ""}
+        {login ? (
+          <a href="/login">
+            <button onClick={onLogout}>Log out</button>{" "}
+          </a>
+        ) : (
+          ""
+        )}
       </div>
     </div>
   );

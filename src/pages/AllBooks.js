@@ -15,6 +15,7 @@ import {
   Modal,
   Alert,
 } from "react-bootstrap";
+import { Empty } from "antd";
 import { useSelector, useDispatch } from "react-redux";
 import useBookForm from "../customHooks/useBookForm";
 import useIsMount from "../customHooks/useIsMount";
@@ -226,61 +227,74 @@ const AllBooks = () => {
             </Button>
           </Modal.Footer>
         </Modal>
-        <Container>
-          <Row>
-            <Col lg={4}>
-              <InputGroup className="mb-3">
-                <FormControl
-                  placeholder="Search by name..."
-                  aria-label="Amount (to the nearest dollar)"
-                  value={searchName}
-                  onChange={(event) => {
-                    searchByNameHandler(event);
-                  }}
-                />
-              </InputGroup>
-            </Col>
-            <Col lg={4}>
-              <InputGroup className="mb-3">
-                <FormControl
-                  placeholder="Search by author..."
-                  aria-label="Amount (to the nearest dollar)"
-                  value={searchAuthor}
-                  onChange={(event) => {
-                    searchByAuthorHandler(event);
-                  }}
-                />
-              </InputGroup>
-            </Col>
-            <Col lg={2}>
-              <Button variant="outline-success" style={{ width: "100%" }}>
-                Search
-              </Button>
-            </Col>
-            <Col lg={2}>
-              <Button
-                variant="outline-dark"
-                style={{ width: "100%" }}
-                onClick={handleShow}
-              >
-                Add new book
-              </Button>
-            </Col>
-          </Row>
-          {loading ? (
-            <Loader />
-          ) : (
+        {books.length === 0 ? (
+          <>
+            <Empty />
+            <Button
+              variant="outline-dark"
+              style={{ width: "15%" }}
+              onClick={handleShow}
+            >
+              Add new book
+            </Button>
+          </>
+        ) : (
+          <Container>
             <Row>
-              {books.map((book) => (
-                <Col lg={3} md={4} xs={12}>
-                  <div className="bookCard">
-                    <BookCard book={book} from="allbooks" />
-                  </div>
-                </Col>
-              ))}
+              <Col lg={4}>
+                <InputGroup className="mb-3">
+                  <FormControl
+                    placeholder="Search by name..."
+                    aria-label="Amount (to the nearest dollar)"
+                    value={searchName}
+                    onChange={(event) => {
+                      searchByNameHandler(event);
+                    }}
+                  />
+                </InputGroup>
+              </Col>
+              <Col lg={4}>
+                <InputGroup className="mb-3">
+                  <FormControl
+                    placeholder="Search by author..."
+                    aria-label="Amount (to the nearest dollar)"
+                    value={searchAuthor}
+                    onChange={(event) => {
+                      searchByAuthorHandler(event);
+                    }}
+                  />
+                </InputGroup>
+              </Col>
+              <Col lg={2}>
+                <Button variant="outline-success" style={{ width: "100%" }}>
+                  Search
+                </Button>
+              </Col>
+              <Col lg={2}>
+                <Button
+                  variant="outline-dark"
+                  style={{ width: "100%" }}
+                  onClick={handleShow}
+                >
+                  Add new book
+                </Button>
+              </Col>
             </Row>
-          )}
-        </Container>
+            {loading ? (
+              <Loader />
+            ) : (
+              <Row>
+                {books.map((book) => (
+                  <Col lg={3} md={4} xs={12}>
+                    <div className="bookCard">
+                      <BookCard book={book} from="allbooks" />
+                    </div>
+                  </Col>
+                ))}
+              </Row>
+            )}
+          </Container>
+        )}
       </div>
     </>
   );

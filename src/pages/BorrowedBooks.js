@@ -4,6 +4,7 @@ import Loader from "../components/Loader";
 import BookCard from "../components/BookCard";
 import "./BookPage.css";
 import { Card, Button, Row, Col, Container } from "react-bootstrap";
+import { Empty } from "antd";
 import { useSelector, useDispatch } from "react-redux";
 import { getSelectedBooksByUserAction } from "./BookStore/action";
 
@@ -24,21 +25,25 @@ const BorrowedBooks = (props) => {
 
   return (
     <div className="page-content">
-      <Container>
-        {loading ? (
-          <Loader />
-        ) : (
-          <Row>
-            {books.map((book) => (
-              <Col lg={3} md={4} xs={12}>
-                <div className="bookCard">
-                  <BookCard book={book} from="borrowedbooks" />
-                </div>
-              </Col>
-            ))}
-          </Row>
-        )}
-      </Container>
+      {books.length === 0 ? (
+        <Empty />
+      ) : (
+        <Container>
+          {loading ? (
+            <Loader />
+          ) : (
+            <Row>
+              {books.map((book) => (
+                <Col lg={3} md={4} xs={12}>
+                  <div className="bookCard">
+                    <BookCard book={book} from="borrowedbooks" />
+                  </div>
+                </Col>
+              ))}
+            </Row>
+          )}
+        </Container>
+      )}
     </div>
   );
 };
