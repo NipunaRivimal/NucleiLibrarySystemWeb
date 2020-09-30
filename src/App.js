@@ -1,6 +1,8 @@
 import React from "react";
 import "./App.css";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { AdminRoute } from "./admin.route";
+import { MemberRoute } from "./member.route";
 import Navbar from "./components/Navbar";
 import AllBooks from "./pages/AllBooks";
 import BorrowedBooks from "./pages/BorrowedBooks";
@@ -11,6 +13,7 @@ import AllMembers from "./pages/AllMembers";
 import MemberView from "./pages/MemberView";
 import Login from "./pages/Login";
 import IssueBook from "./pages/IssueBook";
+import PageNotFound from "./pages/page404";
 import Loader from "./components/Loader";
 import "antd/dist/antd.css";
 
@@ -21,31 +24,48 @@ function App() {
         <Navbar />
 
         <Switch>
-          <Route path="/allbooks" exact static component={AllBooks} />
-          <Route
+          <MemberRoute
             path="/borrowedbooks/:id"
             exact
             static
             component={BorrowedBooks}
           />
-          <Route path="/issuedbooks" exact static component={IssuedBooks} />
-          <Route path="/loader" exact static component={Loader} />
-          <Route
+          <AdminRoute path="/allbooks" exact static component={AllBooks} />
+
+          <AdminRoute
+            path="/issuedbooks"
+            exact
+            static
+            component={IssuedBooks}
+          />
+          <AdminRoute
             path="/availablebooks"
             exact
             static
             component={AvailableBooks}
           />
-          <Route
+          <AdminRoute
             path="/viewbook/:id/:pagecategory"
             exact
             static
             component={BookView}
           />
-          <Route path="/allmembers" exact static component={AllMembers} />
-          <Route path="/viewmember/:id" exact static component={MemberView} />
-          <Route path="/issuebook/:id" exact static component={IssueBook} />
+          <AdminRoute path="/allmembers" exact static component={AllMembers} />
+          <AdminRoute
+            path="/viewmember/:id"
+            exact
+            static
+            component={MemberView}
+          />
+          <AdminRoute
+            path="/issuebook/:id"
+            exact
+            static
+            component={IssueBook}
+          />
+          <Route path="/loader" exact static component={Loader} />
           <Route path="/login" exact static component={Login} />
+          <Route path="*" exact static component={PageNotFound} />
         </Switch>
       </BrowserRouter>
     </div>

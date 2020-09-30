@@ -20,10 +20,6 @@ const BorrowedBooks = (props) => {
     getBorrowedBooks(props.match.params.id);
   }, []);
 
-  // if (!userlogin) {
-  //   return <Redirect to={"/login"} />;
-  // }
-
   return (
     <div className="page-content">
       {books.length === 0 ? (
