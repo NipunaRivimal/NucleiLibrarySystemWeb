@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { InputGroup, FormControl, Button, Alert } from "react-bootstrap";
+import { LockOutlined, UserOutlined } from "@ant-design/icons";
+import { Input } from "antd";
 import "./Login.css";
 import { useSelector, useDispatch } from "react-redux";
 import { loginAction } from "./AuthStore/action";
@@ -46,48 +48,44 @@ const Login = () => {
         marginTop: "100px",
       }}
     >
-      <div>
-        <form onSubmit={handleSubmit}>
-          <InputGroup className="mb-3">
-            <InputGroup.Prepend>
-              <InputGroup.Text id="basic-addon1">Email</InputGroup.Text>
-            </InputGroup.Prepend>
-            <FormControl
-              placeholder="Username"
-              aria-label="Username"
-              aria-describedby="basic-addon1"
-              name="email"
-              value={values.email}
-              onChange={handleChange}
-            />
-          </InputGroup>
-          {errors.email && <Alert variant="danger">{errors.email}</Alert>}
-          <InputGroup className="mb-3">
-            <InputGroup.Prepend>
-              <InputGroup.Text id="basic-addon1">Password</InputGroup.Text>
-            </InputGroup.Prepend>
-            <FormControl
-              placeholder="Username"
-              aria-label="Username"
-              aria-describedby="basic-addon1"
-              type="password"
-              name="password"
-              value={values.password}
-              onChange={handleChange}
-            />
-          </InputGroup>
-          {errors.password && <Alert variant="danger">{errors.password}</Alert>}
-          {!loginStatus && loginErrors && (
-            <Alert variant="danger">{loginErrors}</Alert>
-          )}
-          <Button
-            variant="outline-success"
-            style={{ width: "100%" }}
-            onClick={handleSubmit}
-          >
-            Login
-          </Button>
-        </form>
+      <div style={{ width: "20%" }}>
+        <Input
+          size="large"
+          placeholder="Email"
+          prefix={<UserOutlined />}
+          name="email"
+          value={values.email}
+          onChange={handleChange}
+          style={{ marginBottom: "15px", minWidthidth: "100%" }}
+        />
+
+        {errors.email && <Alert variant="danger">{errors.email}</Alert>}
+
+        <Input.Password
+          size="large"
+          placeholder="Password"
+          prefix={<LockOutlined />}
+          name="password"
+          value={values.password}
+          onChange={handleChange}
+          style={{ marginBottom: "15px", minWidth: "100%" }}
+        />
+        {errors.password && (
+          <Alert variant="danger" style={{ minWidth: "100%" }}>
+            {errors.password}
+          </Alert>
+        )}
+        {!loginStatus && loginErrors && (
+          <Alert variant="danger">{loginErrors}</Alert>
+        )}
+        <Button
+          variant="outline-success"
+          style={{ width: "100%" }}
+          onClick={handleSubmit}
+        >
+          Login
+        </Button>
+        {/* </form> */}
       </div>
     </div>
   );
