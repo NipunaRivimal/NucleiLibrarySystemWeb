@@ -49,11 +49,13 @@ const AllMembers = () => {
     dispatch(getFilteredMembersNameAction(name));
   const filterMembersId = (id) => dispatch(getFilteredMembersIdAction(id));
 
+  //close add member modal
   const handleClose = () => setShow(false);
+  //open add member modal
   const handleShow = () => setShow(true);
 
+  //call add member action with member details
   function submit() {
-    console.log("user add success");
     var today = new Date();
     var dd = String(today.getDate()).padStart(2, "0");
     var mm = String(today.getMonth() + 1).padStart(2, "0");
@@ -77,6 +79,7 @@ const AllMembers = () => {
     handleChangeDefault();
   }
 
+  //if first render only calls get all member action, filterMembersName and filterMembersId calls according to name and id change
   useEffect(() => {
     if (!isMount) {
       const debouncer = window.setTimeout(() => {
@@ -96,11 +99,13 @@ const AllMembers = () => {
     }
   }, [searchName, searchId]);
 
+  //if search by name set name and clear id field
   const searchByNameHandler = (event) => {
     setSearchName(event.target.value);
     setSearchId("");
   };
 
+  //if search by id set id and clear name field
   const searchByIdHandler = (event) => {
     setSearchName("");
     setSearchId(event.target.value);

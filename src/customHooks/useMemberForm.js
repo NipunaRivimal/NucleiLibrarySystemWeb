@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 
 const useMemberForm = (callback, validateAddMember) => {
+  //set initial values
   const [values, setValues] = useState({
     userId: "",
     fName: "",
@@ -11,8 +12,10 @@ const useMemberForm = (callback, validateAddMember) => {
     password: "",
   });
 
+  //set initial errors
   const [errors, setErrors] = useState({});
 
+  //set values when input fields change
   const handleChange = (event) => {
     setValues({
       ...values,
@@ -20,6 +23,7 @@ const useMemberForm = (callback, validateAddMember) => {
     });
   };
 
+  //set values to default after form submit
   const handleChangeDefault = () => {
     setValues({
       ...values,
@@ -33,6 +37,7 @@ const useMemberForm = (callback, validateAddMember) => {
     });
   };
 
+  //set values to form when update button click
   const handleShowSetValues = (member) => {
     setValues({
       ...values,
@@ -48,11 +53,13 @@ const useMemberForm = (callback, validateAddMember) => {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  //set errors and set is submitting true when add member button click
   const handleSubmit = (event) => {
     setErrors(validateAddMember(values));
     setIsSubmitting(true);
   };
 
+  //if no errors call callback function(submit function on allmembers page)
   useEffect(() => {
     if (Object.keys(errors).length === 0 && isSubmitting) {
       callback();

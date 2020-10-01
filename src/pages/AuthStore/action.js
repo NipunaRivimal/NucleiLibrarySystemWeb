@@ -7,6 +7,7 @@ export const loginAction = (userCredintials) => {
       .post("http://localhost:8081/auth/login", userCredintials)
       .then((respose) => {
         if (respose.data.status === 200) {
+          //set states to success login and save token to local storage
           dispatch({
             type: "LOGIN_SUCCESS",
             payload: respose.data.data,
@@ -23,8 +24,12 @@ export const loginAction = (userCredintials) => {
             })
           );
         } else if (respose.data.status === 600 || respose.data.status === 601) {
+          //set states to login fail
+          //status 600 - password doesnt match
+          //status 601 - no user found
           dispatch({ type: "LOGIN_FAIL", payload: respose.data.message });
         } else {
+          //set states to login fail
           dispatch({
             type: "LOGIN_FAIL",
             payload: "Something wrong! Please try again.",
@@ -32,6 +37,7 @@ export const loginAction = (userCredintials) => {
         }
       })
       .catch((error) => {
+        //set states to login fail
         dispatch({
           type: "LOGIN_FAIL",
           payload: "Something wrong! Please try again.",
@@ -40,6 +46,7 @@ export const loginAction = (userCredintials) => {
   };
 };
 
+//when page refresh get user details from locally saved token and set them to state
 export const refreshLoginAction = (user) => {
   return (dispatch) => {
     dispatch({ type: "LOADING" });
@@ -47,6 +54,7 @@ export const refreshLoginAction = (user) => {
   };
 };
 
+//set states to log out
 export const logoutAction = (user) => {
   return (dispatch) => {
     dispatch({ type: "LOADING" });

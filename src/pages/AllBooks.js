@@ -48,6 +48,7 @@ const AllBooks = () => {
   const filterBooksAuthor = (author) =>
     dispatch(getFilteredBooksAuthorAction(author));
 
+  //if first render call get all books, filterBooks and filterBooksAuthor calls according to name and author input change
   useEffect(() => {
     if (!isMount) {
       const debouncer = window.setTimeout(() => {
@@ -67,9 +68,12 @@ const AllBooks = () => {
     }
   }, [searchName, searchAuthor]);
 
+  //close add new book modal
   const handleClose = () => setShow(false);
+  //open add new book modal
   const handleShow = () => setShow(true);
 
+  //call add book action with book details
   function submit() {
     console.log("submit");
     var today = new Date();
@@ -91,11 +95,13 @@ const AllBooks = () => {
     handleChangeDefault();
   }
 
+  //if search by name , set name and clear author field
   const searchByNameHandler = (event) => {
     setSearchName(event.target.value);
     setSearchAuthor("");
   };
 
+  //if search by author, set author and clear name field
   const searchByAuthorHandler = (event) => {
     setSearchName("");
     setSearchAuthor(event.target.value);

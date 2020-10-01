@@ -21,6 +21,7 @@ import {
 } from "./BookStore/action";
 
 const { Text, Title } = Typography;
+
 const BookView = (props) => {
   const {
     handleChange,
@@ -30,7 +31,6 @@ const BookView = (props) => {
     errors,
   } = useBookForm(submit, validateAddBook);
   const [show, setShow] = useState(false);
-  const [membersVisibility, setMembersVisibility] = useState(false);
   const books = useSelector((state) => state.books.books);
   const loading = useSelector((state) => state.books.loading);
   const deleteStatus = useSelector((state) => state.books.bookdeleted);
@@ -51,6 +51,7 @@ const BookView = (props) => {
     setShow(true);
   }
 
+  // submit book details to update book action
   function submit() {
     updateBook(props.match.params.id, {
       bookcode: values.bookID,
@@ -61,6 +62,7 @@ const BookView = (props) => {
     setShow(false);
   }
 
+  //submit book details to update book action for return book function
   const handleReturnUpdate = () => {
     updateBook(props.match.params.id, {
       issuestatus: "false",
@@ -70,10 +72,7 @@ const BookView = (props) => {
     });
   };
 
-  const visibleMemberSearch = () => {
-    setMembersVisibility(true);
-  };
-
+  //if book deleted redirect to the page that user came from
   if (deleteStatus) {
     return <Redirect to={"/" + props.match.params.pagecategory} />;
   }
@@ -322,39 +321,6 @@ const BookView = (props) => {
                   )}
                 </div>
               </div>
-              // <div>
-              //   <h3>{book.bookcode}</h3>
-              //   <h3>{book.name}</h3>
-              //   <h5>{book.author}</h5>
-              //   <h5>{book.description}</h5>
-              //   <h5>{book.addeddate}</h5>
-              //   {members.usertype == "admin" ? (
-              //     <>
-              //       <Button
-              //         variant="outline-danger"
-              //         onClick={(e) => deleteBook(props.match.params.id)}
-              //       >
-              //         Delete
-              //       </Button>
-              //       <Button
-              //         variant="outline-info"
-              //         onClick={(e) => handleShow(book)}
-              //       >
-              //         Update
-              //       </Button>
-
-              //       <Link
-              //         to={{
-              //           pathname: `/issuebook/${props.match.params.id}`,
-              //         }}
-              //       >
-              //         <Button variant="outline-success">Issue</Button>
-              //       </Link>
-              //     </>
-              //   ) : (
-              //     ""
-              //   )}
-              // </div>
             );
           })}
         </div>

@@ -19,6 +19,11 @@ const booksReducer = (state = initialState, Action) => {
         loading: false,
         bookdeleted: false,
       };
+    case "GET_BOOKS_ERROR":
+      return {
+        ...state,
+        loading: false,
+      };
     case "GET_SELECTED_BOOKS":
       return {
         ...state,

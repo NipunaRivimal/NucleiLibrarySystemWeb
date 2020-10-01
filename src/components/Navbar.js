@@ -16,6 +16,7 @@ const Navbar = () => {
     storeCollector();
   }, []);
 
+  //collect token details from local storage
   const storeCollector = () => {
     let store = JSON.parse(localStorage.getItem("login"));
     if (store && store.login) {
@@ -23,6 +24,7 @@ const Navbar = () => {
     }
   };
 
+  //chnage store states and clear token when logout
   const onLogout = (e) => {
     userLogout();
     localStorage.removeItem("login");

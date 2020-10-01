@@ -20,13 +20,6 @@ const Login = () => {
   const dispatch = useDispatch();
   const userLogin = (userCredintials) => dispatch(loginAction(userCredintials));
 
-  //   const onSubmitHadler = () => {
-  //     userLogin({
-  //       email: email,
-  //       password: password,
-  //     });
-  //   };
-
   function submit() {
     userLogin({
       email: values.email,
@@ -34,10 +27,12 @@ const Login = () => {
     });
   }
 
+  //check logged user type , if member redirect to borrowed books page
   if (member && member.usertype == "member") {
     return <Redirect to={`/borrowedbooks/${member._id}`} />;
   }
 
+  //check logged user type , if admin redirect to allbook page
   if (member && member.usertype == "admin") {
     return <Redirect to="/allbooks" />;
   }

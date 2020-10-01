@@ -19,6 +19,11 @@ const memberReducer = (state = initialState, Action) => {
         loading: false,
         memberDeleted: false,
       };
+    case "GET_MEMBERS_ERRORS":
+      return {
+        ...state,
+        loading: false,
+      };
     case "GET_SELECTED_MEMBERS":
       return {
         ...state,

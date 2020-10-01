@@ -1,3 +1,4 @@
+//validations to add new member form
 export default function validateAddMember(values) {
   let errors = {};
 

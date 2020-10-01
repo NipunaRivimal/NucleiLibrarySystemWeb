@@ -24,12 +24,20 @@ function App() {
         <Navbar />
 
         <Switch>
+          {/* protected member routes */}
           <MemberRoute
             path="/borrowedbooks/:id"
             exact
             static
             component={BorrowedBooks}
           />
+          <MemberRoute
+            path="/memberviewbook/:id/:pagecategory"
+            exact
+            static
+            component={BookView}
+          />
+          {/* protected admin routes */}
           <AdminRoute path="/allbooks" exact static component={AllBooks} />
 
           <AdminRoute
@@ -50,12 +58,6 @@ function App() {
             static
             component={BookView}
           />
-          <MemberRoute
-            path="/memberviewbook/:id/:pagecategory"
-            exact
-            static
-            component={BookView}
-          />
           <AdminRoute path="/allmembers" exact static component={AllMembers} />
           <AdminRoute
             path="/viewmember/:id"
@@ -69,6 +71,7 @@ function App() {
             static
             component={IssueBook}
           />
+          {/* public routes */}
           <Route path="/loader" exact static component={Loader} />
           <Route path="/" exact static component={Login} />
           <Route path="*" exact static component={PageNotFound} />

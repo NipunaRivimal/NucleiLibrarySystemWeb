@@ -16,6 +16,7 @@ const BorrowedBooks = (props) => {
   const dispatch = useDispatch();
   const getBorrowedBooks = (id) => dispatch(getSelectedBooksByUserAction(id));
 
+  //call borrowed books action with specific user id
   useEffect(() => {
     getBorrowedBooks(props.match.params.id);
   }, []);

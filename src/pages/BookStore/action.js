@@ -1,5 +1,6 @@
 import axios from "axios";
 
+//get all books
 export const getAllBooksAction = () => {
   return (dispatch) => {
     dispatch({ type: "LOADING" });
@@ -9,11 +10,12 @@ export const getAllBooksAction = () => {
         dispatch({ type: "GET_BOOKS", payload: respose.data.data });
       })
       .catch((error) => {
-        console.log(error);
+        dispatch({ type: "GET_BOOKS_ERROR" });
       });
   };
 };
 
+//get books according to issue status
 export const getSelectedBooksAction = (status) => {
   return (dispatch) => {
     dispatch({ type: "LOADING" });
@@ -23,11 +25,12 @@ export const getSelectedBooksAction = (status) => {
         dispatch({ type: "GET_BOOKS", payload: respose.data.data });
       })
       .catch((error) => {
-        console.log(error);
+        dispatch({ type: "GET_BOOKS_ERROR" });
       });
   };
 };
 
+//get books according to member id
 export const getSelectedBooksByUserAction = (id) => {
   return (dispatch) => {
     dispatch({ type: "LOADING" });
@@ -37,11 +40,12 @@ export const getSelectedBooksByUserAction = (id) => {
         dispatch({ type: "GET_BOOKS", payload: respose.data.data });
       })
       .catch((error) => {
-        console.log(error);
+        dispatch({ type: "GET_BOOKS_ERROR" });
       });
   };
 };
 
+//get single book according to book id
 export const getSingleBookAction = (id) => {
   return (dispatch) => {
     dispatch({ type: "LOADING" });
@@ -51,11 +55,12 @@ export const getSingleBookAction = (id) => {
         dispatch({ type: "GET_BOOKS", payload: respose.data.data });
       })
       .catch((error) => {
-        console.log(error);
+        dispatch({ type: "GET_BOOKS_ERROR" });
       });
   };
 };
 
+//get books according to book name
 export const getFilteredBooksNameAction = (name) => {
   return (dispatch) => {
     dispatch({ type: "LOADING" });
@@ -65,11 +70,12 @@ export const getFilteredBooksNameAction = (name) => {
         dispatch({ type: "GET_BOOKS", payload: respose.data.data });
       })
       .catch((error) => {
-        console.log(error);
+        dispatch({ type: "GET_BOOKS_ERROR" });
       });
   };
 };
 
+//get books according to author
 export const getFilteredBooksAuthorAction = (author) => {
   return (dispatch) => {
     dispatch({ type: "LOADING" });
@@ -79,11 +85,12 @@ export const getFilteredBooksAuthorAction = (author) => {
         dispatch({ type: "GET_BOOKS", payload: respose.data.data });
       })
       .catch((error) => {
-        console.log(error);
+        dispatch({ type: "GET_BOOKS_ERROR" });
       });
   };
 };
 
+//delete book
 export const deleteBookAction = (id) => {
   return (dispatch) => {
     dispatch({ type: "LOADING" });
@@ -95,11 +102,12 @@ export const deleteBookAction = (id) => {
         }
       })
       .catch((error) => {
-        console.log(error);
+        dispatch({ type: "GET_BOOKS_ERROR" });
       });
   };
 };
 
+//add new book
 export const addBookAction = (book) => {
   return (dispatch) => {
     dispatch({ type: "LOADING" });
@@ -111,11 +119,12 @@ export const addBookAction = (book) => {
         }
       })
       .catch((error) => {
-        console.log(error);
+        dispatch({ type: "GET_BOOKS_ERROR" });
       });
   };
 };
 
+//update book details
 export const updateBookAction = (id, book) => {
   return (dispatch) => {
     dispatch({ type: "LOADING" });
@@ -127,7 +136,7 @@ export const updateBookAction = (id, book) => {
         }
       })
       .catch((error) => {
-        console.log(error);
+        dispatch({ type: "GET_BOOKS_ERROR" });
       });
   };
 };

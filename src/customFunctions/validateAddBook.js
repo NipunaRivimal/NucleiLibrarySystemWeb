@@ -1,3 +1,4 @@
+//validations of add new book form
 export default function validateAddBook(values) {
   let errors = {};
 

@@ -11,8 +11,10 @@ export const MemberRoute = ({ component: Component, ...props }) => {
       {...props}
       render={(props) => {
         if (login && members.usertype == "member") {
+          // if user authenticate return component that user requests
           return <Component {...props} />;
         } else {
+          // return same page if user not authenticated for requested route
           return <Redirect to={{ pathname: history.replace() }} />;
         }
       }}

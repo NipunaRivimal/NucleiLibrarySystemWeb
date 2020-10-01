@@ -45,6 +45,7 @@ const IssueBook = (props) => {
 
   let history = useHistory();
 
+  //if first render call only getAllMembers(), other get methods calls only name or id change on search
   useEffect(() => {
     if (!isMount) {
       const debouncer = window.setTimeout(() => {
@@ -64,26 +65,31 @@ const IssueBook = (props) => {
     }
   }, [searchName, searchId]);
 
+  //if search by member name reset id input and set name
   const searchByNameHandler = (event) => {
     setSearchName(event.target.value);
     setSearchId("");
   };
 
+  //if search by member id reset name input and set id
   const searchByIdHandler = (event) => {
     setSearchName("");
     setSearchId(event.target.value);
   };
 
+  //set issue date
   function onChangeI(date, dateString) {
     console.log(dateString);
     setIDate(dateString);
   }
 
+  //set due date
   function onChangeD(date, dateString) {
     console.log(dateString);
     setDDate(dateString);
   }
 
+  //update book details according to selected user, issue date and due date
   const handleIssueUpdate = () => {
     updateBook(props.match.params.id, {
       issuestatus: "true",
@@ -91,6 +97,7 @@ const IssueBook = (props) => {
       issueddate: iDate,
       returndate: dDate,
     });
+    //return back to book view page
     return <Redirect to={history.goBack()} />;
   };
 

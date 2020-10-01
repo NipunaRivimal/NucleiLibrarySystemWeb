@@ -1,5 +1,6 @@
 import axios from "axios";
 
+//get all members
 export const getAllMembersAction = () => {
   return (dispatch) => {
     dispatch({ type: "LOADING" });
@@ -9,11 +10,12 @@ export const getAllMembersAction = () => {
         dispatch({ type: "GET_MEMBERS", payload: respose.data.data });
       })
       .catch((error) => {
-        console.log(error);
+        dispatch({ type: "GET_MEMBERS_ERRORS" });
       });
   };
 };
 
+//get members according to first name
 export const getFilteredMembersNameAction = (name) => {
   return (dispatch) => {
     dispatch({ type: "LOADING" });
@@ -23,11 +25,12 @@ export const getFilteredMembersNameAction = (name) => {
         dispatch({ type: "GET_MEMBERS", payload: respose.data.data });
       })
       .catch((error) => {
-        console.log(error);
+        dispatch({ type: "GET_MEMBERS_ERRORS" });
       });
   };
 };
 
+//get members according to member id
 export const getFilteredMembersIdAction = (id) => {
   return (dispatch) => {
     dispatch({ type: "LOADING" });
@@ -37,11 +40,12 @@ export const getFilteredMembersIdAction = (id) => {
         dispatch({ type: "GET_MEMBERS", payload: respose.data.data });
       })
       .catch((error) => {
-        console.log(error);
+        dispatch({ type: "GET_MEMBERS_ERRORS" });
       });
   };
 };
 
+//get single member
 export const getSingleMemberAction = (id) => {
   return (dispatch) => {
     dispatch({ type: "LOADING" });
@@ -51,11 +55,12 @@ export const getSingleMemberAction = (id) => {
         dispatch({ type: "GET_MEMBERS", payload: respose.data.data });
       })
       .catch((error) => {
-        console.log(error);
+        dispatch({ type: "GET_MEMBERS_ERRORS" });
       });
   };
 };
 
+//delete member
 export const deleteMemberAction = (id) => {
   return (dispatch) => {
     dispatch({ type: "LOADING" });
@@ -67,11 +72,12 @@ export const deleteMemberAction = (id) => {
         }
       })
       .catch((error) => {
-        console.log(error);
+        dispatch({ type: "GET_MEMBERS_ERRORS" });
       });
   };
 };
 
+//add new member
 export const addMemberAction = (member) => {
   return (dispatch) => {
     dispatch({ type: "LOADING" });
@@ -83,11 +89,12 @@ export const addMemberAction = (member) => {
         }
       })
       .catch((error) => {
-        console.log(error);
+        dispatch({ type: "GET_MEMBERS_ERRORS" });
       });
   };
 };
 
+//update memeber
 export const updateMemberAction = (id, member) => {
   return (dispatch) => {
     dispatch({ type: "LOADING" });
@@ -99,7 +106,7 @@ export const updateMemberAction = (id, member) => {
         }
       })
       .catch((error) => {
-        console.log(error);
+        dispatch({ type: "GET_MEMBERS_ERRORS" });
       });
   };
 };

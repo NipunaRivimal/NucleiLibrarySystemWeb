@@ -43,6 +43,7 @@ const MemberView = (props) => {
     setShow(true);
   };
 
+  // submit user details to update user action
   function submit() {
     updateMember(props.match.params.id, {
       userid: values.userId,
@@ -57,10 +58,12 @@ const MemberView = (props) => {
     setShow(false);
   }
 
+  //get specific user details
   useEffect(() => {
     getSingleMember(props.match.params.id);
   }, []);
 
+  //if user user deleted redirect to all members page
   if (deleteStatus) {
     return <Redirect to="/allmembers" />;
   }
@@ -194,13 +197,6 @@ const MemberView = (props) => {
           >
             {members.map((member) => (
               <div>
-                {/* <h3>{"Member ID: " + member.userid}</h3>
-                <h3>{"First Name: " + member.firstname}</h3>
-                <h5>{"Last Name: " + member.lastname}</h5>
-                <h5>{"Mobile Number: " + member.mobilenumber}</h5>
-                <h5>{"Home Address: " + member.homeaddress}</h5>
-                <h5>{"Email: " + member.email}</h5>
-                <h5>{"Joined Date: " + member.joindate}</h5> */}
                 <Descriptions title="Member Info">
                   <Descriptions.Item label="Member ID">
                     {member.userid}
