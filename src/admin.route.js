@@ -13,7 +13,7 @@ export const AdminRoute = ({ component: Component, ...props }) => {
         if (login && members.usertype == "admin") {
           return <Component {...props} />;
         } else {
-          //   return <Redirect to={{ pathname: history.goBack() }} />;
+          return <Redirect to={{ pathname: history.replace() }} />;
         }
       }}
     />

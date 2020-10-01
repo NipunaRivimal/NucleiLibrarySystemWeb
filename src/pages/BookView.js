@@ -235,6 +235,15 @@ const BookView = (props) => {
                           Return
                         </Button>
                       </div>
+                      <div style={{ margin: "5px" }}>
+                        <Link
+                          to={{
+                            pathname: `/viewmember/${book.borrower}`,
+                          }}
+                        >
+                          <Button variant="outline-info">Borrower</Button>
+                        </Link>
+                      </div>
                     </div>
                   ) : (
                     ""

@@ -13,7 +13,7 @@ export const MemberRoute = ({ component: Component, ...props }) => {
         if (login && members.usertype == "member") {
           return <Component {...props} />;
         } else {
-          //   return <Redirect to={{ pathname: history.goBack() }} />;
+          return <Redirect to={{ pathname: history.replace() }} />;
         }
       }}
     />

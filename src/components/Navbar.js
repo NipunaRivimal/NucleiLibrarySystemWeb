@@ -48,7 +48,7 @@ const Navbar = () => {
             <div className="item">
               <div style={{ alignSelf: "flex-end", marginRight: "10px" }}>
                 {login ? (
-                  <a href="/login">
+                  <a href="/">
                     <Button variant="outline-dark" onClick={onLogout}>
                       Log out
                     </Button>

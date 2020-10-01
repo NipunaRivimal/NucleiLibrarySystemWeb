@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, Redirect } from "react-router-dom";
+import { Link, Redirect, useHistory } from "react-router-dom";
 import Loader from "../components/Loader";
 import {
   Container,
@@ -35,6 +35,7 @@ const MemberView = (props) => {
   const getSingleMember = (id) => dispatch(getSingleMemberAction(id));
   const deleteMember = (id) => dispatch(deleteMemberAction(id));
   const updateMember = (id, member) => dispatch(updateMemberAction(id, member));
+  const history = useHistory();
 
   const handleClose = () => setShow(false);
   const handleShow = (member) => {
@@ -67,6 +68,14 @@ const MemberView = (props) => {
   return (
     <div style={{ marginTop: "30px" }}>
       <Container>
+        <Button
+          variant="outline-secondary"
+          style={{ width: "15%" }}
+          onClick={(e) => history.goBack()}
+        >
+          Back
+        </Button>
+
         <Modal
           size="lg"
           show={show}
@@ -170,15 +179,6 @@ const MemberView = (props) => {
             </Button>
           </Modal.Footer>
         </Modal>
-        <Link
-          to={{
-            pathname: "/allmembers",
-          }}
-        >
-          <Button variant="outline-secondary" style={{ width: "15%" }}>
-            Back
-          </Button>
-        </Link>
         {loading ? (
           <Loader />
         ) : (

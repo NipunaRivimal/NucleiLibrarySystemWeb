@@ -70,7 +70,7 @@ function App() {
             component={IssueBook}
           />
           <Route path="/loader" exact static component={Loader} />
-          <Route path="/login" exact static component={Login} />
+          <Route path="/" exact static component={Login} />
           <Route path="*" exact static component={PageNotFound} />
         </Switch>
       </BrowserRouter>
